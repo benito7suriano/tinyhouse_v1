@@ -3,7 +3,10 @@ const express = require('express')
 const app = express()
 const port = 9000
 
-app.get('/',(req,res) => res.send('hello world'))
+let one = 1
+let two = 2
+
+app.get('/',(req:any,res:any) => res.send(`1 + 2 = ${one+two}`))
 
 app.listen(port)
 
