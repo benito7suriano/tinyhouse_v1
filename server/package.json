@@ -2,7 +2,8 @@
   "name": "tinyhouse-v1-server",
   "version": "0.1.0",
   "scripts": {
-    "start": "nodemon src/index.ts"
+    "start": "nodemon src/index.ts",
+    "build": "tsc -p ./"
   },
   "dependencies": {
     "express": "^4.18.2"
