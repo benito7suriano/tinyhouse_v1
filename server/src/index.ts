@@ -1,5 +1,7 @@
 import { ApolloServer } from '@apollo/server'
+import { expressMiddleware } from '@apollo/server/express4'
 import { startStandaloneServer } from '@apollo/server/standalone'
+import express from 'express'
 
 import { schema } from './graphql'
 // The ApolloServer constructor requires two parameters: your schema
@@ -12,7 +14,7 @@ const server = new ApolloServer({ schema })
 //  3. prepares your app to handle incoming requests
 startStandaloneServer(server, {
   listen: { port: 9000 },
-}).then(url => {
-  console.log(`🚀 Server ready at ${url}`)
+}).then(({url}) => {
+  console.log(`🚀 Server ready at ${ url }`)
 })
 

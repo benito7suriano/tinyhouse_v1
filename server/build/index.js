@@ -12,6 +12,6 @@ const server = new server_1.ApolloServer({ schema: graphql_1.schema });
 //  3. prepares your app to handle incoming requests
 (0, standalone_1.startStandaloneServer)(server, {
     listen: { port: 9000 },
-}).then(url => {
+}).then(({ url }) => {
     console.log(`🚀 Server ready at ${url}`);
 });
