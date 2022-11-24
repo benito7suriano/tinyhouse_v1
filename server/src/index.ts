@@ -1,33 +1,18 @@
-import express from 'express'
+import { ApolloServer } from '@apollo/server'
+import { startStandaloneServer } from '@apollo/server/standalone'
 
-import { listings, Listing } from './listings'
+import { schema } from './graphql'
+// The ApolloServer constructor requires two parameters: your schema
+// definition and your set of resolvers.
+const server = new ApolloServer({ schema })
 
-const app = express()
-const port = 9000
-
-const one = 1
-const two = 2
-
-app.use(express.json())
-
-app.get('/',(_req,res) => res.send(`1 + 2 = ${one+two}`))
-
-// To notify that we're aware of this unused parameter, we can prefix the req param with an underscore.
-app.get('/listings', (_req,res) => {
-  res.send(listings)
+// Passing an ApolloServer instance to the `startStandaloneServer` function:
+//  1. creates an Express app
+//  2. installs your ApolloServer instance as middleware
+//  3. prepares your app to handle incoming requests
+startStandaloneServer(server, {
+  listen: { port: 9000 },
+}).then(url => {
+  console.log(`🚀 Server ready at ${url}`)
 })
 
-app.post('/delete-listing', (req,res) => {
-  const id:string = req.body.id
-  for(let i = 0; i < listings.length; i++) {
-    if(listings[i].id === id) {
-      return res.send(listings.splice(i,1))
-    }
-  }
-
-  return res.send('failed to delete listing')
-})
-
-app.listen(port, () => {
-  console.log(`[app] : http://localhost:${port}`)
-})

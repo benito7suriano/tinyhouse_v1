@@ -2,8 +2,8 @@
   "name": "tinyhouse-v1-server",
   "version": "0.1.0",
   "scripts": {
-    "start": "nodemon src/index.ts",
-    "build": "tsc -p ./"
+    "build": "tsc -p ./",
+    "start": "npm run build && node build/index.js"
   },
   "dependencies": {
     "@apollo/server": "^4.2.1",
