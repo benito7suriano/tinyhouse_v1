@@ -1,24 +1,6 @@
-import { GraphQLSchema, GraphQLString, GraphQLObjectType, GraphQLID, GraphQLInt, GraphQLNonNull } from "graphql";
+import { GraphQLSchema, GraphQLString, GraphQLObjectType, GraphQLID, GraphQLInt, GraphQLNonNull, GraphQLList } from "graphql";
 
-const query = new GraphQLObjectType({
-  name: "Query",
-  fields: {
-    hello: {
-      type: GraphQLString,
-      resolve: () => "Hello from the Query!"
-    }
-  }
-});
-
-const mutation = new GraphQLObjectType({
-  name: "Mutation",
-  fields: {
-    hello: {
-      type: GraphQLString,
-      resolve: () => "Hello from the Mutation!"
-    }
-  }
-});
+import { listings } from "./listings";
 
 const Listing = new GraphQLObjectType({
   name: "Listing",
@@ -34,5 +16,36 @@ const Listing = new GraphQLObjectType({
     rating: {type: new GraphQLNonNull(GraphQLInt)},
   }
 })
+
+const query = new GraphQLObjectType({
+  name: "Query",
+  fields: {
+    listings: {
+      type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(Listing))),
+      resolve: () => listings
+    }
+  }
+});
+
+const mutation = new GraphQLObjectType({
+  name: "Mutation",
+  fields: {
+    deleteListing: {
+      type: new GraphQLNonNull(Listing),
+      args: {
+        id: {type: new GraphQLNonNull(GraphQLID)}
+      },
+      resolve: (_root, { id }) => {
+        for (let i = 0; i < listings.length; i++) {
+          if (listings[i].id === id) {
+            return listings.splice(i, 1)[0];
+          }
+        }
+
+        throw new Error("failed to deleted listing");
+      }
+    }
+  }
+});
 
 export const schema = new GraphQLSchema({query,mutation})
