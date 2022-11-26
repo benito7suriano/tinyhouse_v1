@@ -1,17 +1,34 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const server_1 = require("@apollo/server");
-const standalone_1 = require("@apollo/server/standalone");
+const express4_1 = require("@apollo/server/express4");
+const drainHttpServer_1 = require("@apollo/server/plugin/drainHttpServer");
+const express_1 = __importDefault(require("express"));
+const http_1 = __importDefault(require("http"));
+const cors_1 = __importDefault(require("cors"));
+const body_parser_1 = require("body-parser");
 const graphql_1 = require("./graphql");
-// The ApolloServer constructor requires two parameters: your schema
-// definition and your set of resolvers.
-const server = new server_1.ApolloServer({ schema: graphql_1.schema });
-// Passing an ApolloServer instance to the `startStandaloneServer` function:
-//  1. creates an Express app
-//  2. installs your ApolloServer instance as middleware
-//  3. prepares your app to handle incoming requests
-(0, standalone_1.startStandaloneServer)(server, {
-    listen: { port: 9000 },
-}).then(({ url }) => {
-    console.log(`🚀 Server ready at ${url}`);
+const app = (0, express_1.default)();
+const httpServer = http_1.default.createServer(app);
+const server = new server_1.ApolloServer({ schema: graphql_1.schema, plugins: [(0, drainHttpServer_1.ApolloServerPluginDrainHttpServer)({ httpServer })] });
+server.start().then(() => {
+    console.log('server started...');
+    app.use('/api', (0, cors_1.default)(), (0, body_parser_1.json)(), (0, express4_1.expressMiddleware)(server, {
+        context: ({ req }) => __awaiter(void 0, void 0, void 0, function* () { return ({ token: req.headers.token }); })
+    }));
+    new Promise((resolve) => httpServer.listen({ port: 9000 }, resolve)).then(() => {
+        console.log(`🚀 Server ready at http://localhost:9000/api`);
+    });
 });
