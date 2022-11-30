@@ -1,7 +1,7 @@
 export const typeDefs = `#qgl
   # Comments in GraphQL strings start with the hash symbol.
 
-	# This "Book" type defines the queryable fields for every book in our
+	# This "Listing" type defines the queryable fields for every listing in our
 	# data source.
   type Listing {
     id: ID!
@@ -17,5 +17,9 @@ export const typeDefs = `#qgl
 
   type Query {
     listings: [Listing!]!
+  }
+
+  type Mutation {
+    deleteListing(id:ID!): Listing!
   }
 `
