@@ -5,8 +5,7 @@ import express from 'express'
 import http from 'http'
 import cors from 'cors'
 import { json } from 'body-parser'
-
-import { schema } from './graphql'
+import { typeDefs, resolvers } from './graphql/index'
 
 interface MyContext {
   token?: string;
@@ -15,7 +14,8 @@ interface MyContext {
 const app = express()
 const httpServer = http.createServer(app)
 
-const server = new ApolloServer<MyContext>({ schema, plugins: [ApolloServerPluginDrainHttpServer({ httpServer })] })
+const server = new ApolloServer<MyContext>({ typeDefs, resolvers, plugins: [ApolloServerPluginDrainHttpServer({ httpServer })] })
+
 server.start().then(() => {
   console.log('server started...')
   app.use(

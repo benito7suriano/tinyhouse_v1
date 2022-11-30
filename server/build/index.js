@@ -19,10 +19,10 @@ const express_1 = __importDefault(require("express"));
 const http_1 = __importDefault(require("http"));
 const cors_1 = __importDefault(require("cors"));
 const body_parser_1 = require("body-parser");
-const graphql_1 = require("./graphql");
+const index_1 = require("./graphql/index");
 const app = (0, express_1.default)();
 const httpServer = http_1.default.createServer(app);
-const server = new server_1.ApolloServer({ schema: graphql_1.schema, plugins: [(0, drainHttpServer_1.ApolloServerPluginDrainHttpServer)({ httpServer })] });
+const server = new server_1.ApolloServer({ typeDefs: index_1.typeDefs, resolvers: index_1.resolvers, plugins: [(0, drainHttpServer_1.ApolloServerPluginDrainHttpServer)({ httpServer })] });
 server.start().then(() => {
     console.log('server started...');
     app.use('/api', (0, cors_1.default)(), (0, body_parser_1.json)(), (0, express4_1.expressMiddleware)(server, {
