@@ -7,6 +7,10 @@ import cors from 'cors'
 import { json } from 'body-parser'
 import { typeDefs, resolvers } from './graphql/index'
 
+import dotenv from 'dotenv'
+
+dotenv.config()
+
 interface MyContext {
   token?: string;
 }
