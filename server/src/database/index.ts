@@ -1,7 +1,7 @@
 import { MongoClient } from "mongodb";
 
 const user = 'beno7suriano'
-const password = ''
+const password = process.env.MONGODB__CLIENT__PASSWORD
 const cluster = 'tinyhouse-v1.mmwkocb'
 
 const url = `mongodb+srv://${user}:${password}@${cluster}.mongodb.net/?retryWrites=true&w=majority`
