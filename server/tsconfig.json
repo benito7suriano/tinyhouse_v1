@@ -5,6 +5,7 @@
     "target": "ES6",
     "module": "CommonJS",
     "esModuleInterop": true,
-    "types": ["node"]
+    "types": ["node"],
   },
+  "exclude": ["temp"]
 }
