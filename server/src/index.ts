@@ -36,8 +36,6 @@ const mount = async (app: Application) => {
       console.log(`🚀 Server ready at http://localhost:9000/api`)
     })
   })
-  const listings = await db.listings.find({}).toArray()
-  console.log(listings)
 }
 
 mount(express())
