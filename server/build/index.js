@@ -32,11 +32,9 @@ const mount = (app) => __awaiter(void 0, void 0, void 0, function* () {
         app.use('/api', (0, cors_1.default)(), (0, body_parser_1.json)(), (0, express4_1.expressMiddleware)(server, {
             context: ({ req }) => __awaiter(void 0, void 0, void 0, function* () { return ({ token: req.headers.token, db }); })
         }));
-        new Promise(resolve => (httpServer.listen({ port: 9000 }, resolve))).then(() => {
-            console.log(`🚀 Server ready at http://localhost:9000/api`);
+        new Promise(resolve => (httpServer.listen({ port: process.env.PORT }, resolve))).then(() => {
+            console.log(`🚀 Server ready at http://localhost:${process.env.PORT}/api`);
         });
     });
-    const listings = yield db.listings.find({}).toArray();
-    console.log(listings);
 });
 mount((0, express_1.default)());

@@ -31,9 +31,9 @@ const mount = async (app: Application) => {
       })
     )
     new Promise<void>(resolve => (
-      httpServer.listen({ port: 9000 }, resolve)
+      httpServer.listen({ port: process.env.PORT }, resolve)
     )).then(() => {
-      console.log(`🚀 Server ready at http://localhost:9000/api`)
+      console.log(`🚀 Server ready at http://localhost:${process.env.PORT}/api`)
     })
   })
 }

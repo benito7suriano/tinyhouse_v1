@@ -11,9 +11,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.connectDatabase = void 0;
 const mongodb_1 = require("mongodb");
-const user = 'beno7suriano';
+const user = process.env.MONGODB_CLIENT_USER;
 const password = process.env.MONGODB_CLIENT_PASSWORD;
-const cluster = 'tinyhouse-v1.mmwkocb';
+const cluster = process.env.MONGODB_CLUSTER;
 const url = `mongodb+srv://${user}:${password}@${cluster}.mongodb.net/?retryWrites=true&w=majority`;
 const connectDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
     const client = yield mongodb_1.MongoClient.connect(url, {
