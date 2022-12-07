@@ -1,5 +1,5 @@
 import { IResolvers } from "@graphql-tools/utils";
-import { Database } from "../lib/types";
+import { Database, Listing } from "../lib/types";
 import { ObjectId } from "mongodb";
 
 export const resolvers: IResolvers = {
@@ -17,5 +17,8 @@ export const resolvers: IResolvers = {
       if(!deletedListing.value) throw new Error('Failed to delete listing.')
       return deletedListing.value
     }
+  },
+  Listing: {
+    id: (listing:Listing):string => listing._id.toString()
   }
 }
