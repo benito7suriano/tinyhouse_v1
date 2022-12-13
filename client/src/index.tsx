@@ -9,7 +9,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Listings />
+    <Listings title={'Hello TinyHouse Listings'} />
   </React.StrictMode>
 );
 
