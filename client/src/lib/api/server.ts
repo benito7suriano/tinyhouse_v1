@@ -3,5 +3,7 @@ interface Body {
 }
 
 export const server = {
-  fetch: (body: Body) => {},
+  fetch: async (body: Body) => {
+    const res = await fetch('/api')
+  },
 }
