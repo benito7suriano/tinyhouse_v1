@@ -13,12 +13,16 @@ import { typeDefs, resolvers } from './graphql/index'
 import { connectDatabase } from './database/index'
 
 interface MyContext {
-  token?: string;
+  token?: string
 }
 
 const mount = async (app: Application) => {
   const httpServer = http.createServer(app)
-  const server = new ApolloServer<MyContext>({ typeDefs, resolvers, plugins: [ApolloServerPluginDrainHttpServer({ httpServer })] })
+  const server = new ApolloServer<MyContext>({
+    typeDefs,
+    resolvers,
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+  })
   const db = await connectDatabase()
   server.start().then(() => {
     console.log('server started...')
@@ -27,12 +31,12 @@ const mount = async (app: Application) => {
       cors<cors.CorsRequest>(),
       json(),
       expressMiddleware(server, {
-       context: async ({ req }) => ({ token: req.headers.token, db })
-      })
+        context: async ({ req }) => ({ token: req.headers.token, db }),
+      }),
     )
-    new Promise<void>(resolve => (
-      httpServer.listen({ port: process.env.PORT }, resolve)
-    )).then(() => {
+    new Promise<void>((resolve) =>
+      httpServer.listen({ port: process.env.PORT }, resolve),
+    ).then(() => {
       console.log(`🚀 Server ready at http://localhost:${process.env.PORT}/api`)
     })
   })
