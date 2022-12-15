@@ -1,6 +1,10 @@
 import React from 'react'
 import { server } from '../../lib/api'
-import { ListingsData } from './types'
+import {
+  ListingsData,
+  DeleteListingData,
+  DeleteListingVariables,
+} from './types'
 
 const LISTINGS = `
   query {
@@ -14,6 +18,14 @@ const LISTINGS = `
       numOfBeds
       numOfBaths
       rating
+    }
+  }
+`
+
+const DELETE_LISTING = `
+  mutation DeleteListing($id: ID!) {
+    deleteListing(id: $id) {
+      id
     }
   }
 `
