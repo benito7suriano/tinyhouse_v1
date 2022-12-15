@@ -39,10 +39,25 @@ export const Listings = ({ title }: Props) => {
     const { data } = await server.fetch<ListingsData>({ query: LISTINGS })
     console.log(data)
   }
+
+  const deleteListing = async () => {
+    const { data } = await server.fetch<
+      DeleteListingData,
+      DeleteListingVariables
+    >({
+      query: DELETE_LISTING,
+      variables: {
+        id: '639a8321cbf1c2407f64f903',
+      },
+    })
+    console.log(data)
+  }
+
   return (
     <>
       <div>{title}</div>
       <button onClick={fetchListings}>Query Listings!</button>
+      <button onClick={deleteListing}>Delete a Listing!</button>
     </>
   )
 }
