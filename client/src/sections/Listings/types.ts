@@ -13,3 +13,11 @@ interface Listing {
 export type ListingsData = {
   listings: Listing[]
 }
+
+export interface DeleteListingData {
+  listing: Listing
+}
+
+export interface DeleteListingVariables {
+  id: string
+}
