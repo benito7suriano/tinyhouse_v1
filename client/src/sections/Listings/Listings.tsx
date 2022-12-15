@@ -22,5 +22,14 @@ interface Props {
 }
 
 export const Listings = ({ title }: Props) => {
-  return <div>{title}</div>
+  const fetchListings = async () => {
+    const { data } = await server.fetch({ query: LISTINGS })
+    console.log(data)
+  }
+  return (
+    <>
+      <div>{title}</div>
+      <button onClick={fetchListings}>Query Listings!</button>
+    </>
+  )
 }
