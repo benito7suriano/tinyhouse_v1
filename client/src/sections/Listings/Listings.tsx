@@ -44,15 +44,13 @@ export const Listings = ({ title }: Props) => {
   }
 
   const deleteListing = async (id: string) => {
-    const { data } = await server.fetch<
-      DeleteListingData,
-      DeleteListingVariables
-    >({
+    await server.fetch<DeleteListingData, DeleteListingVariables>({
       query: DELETE_LISTING,
       variables: {
         id,
       },
     })
+    // must re-fetch to update the UI with the list w/o deleted item.
     fetchListings()
   }
 
