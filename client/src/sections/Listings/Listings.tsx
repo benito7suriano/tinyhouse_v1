@@ -43,23 +43,26 @@ export const Listings = ({ title }: Props) => {
     setListings(data.listings)
   }
 
-  const deleteListing = async () => {
+  const deleteListing = async (id: string) => {
     const { data } = await server.fetch<
       DeleteListingData,
       DeleteListingVariables
     >({
       query: DELETE_LISTING,
       variables: {
-        id: '639a8321cbf1c2407f64f903',
+        id,
       },
     })
-    console.log(data)
+    fetchListings()
   }
 
   const listingsList = listings && (
     <ul>
       {listings.map((listing) => (
-        <li>{listing.title}</li>
+        <div key={listing.id}>
+          <li>{listing.title}</li>
+          <button onClick={() => deleteListing(listing.id)}>Delete me</button>
+        </div>
       ))}
     </ul>
   )
