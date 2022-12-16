@@ -40,7 +40,7 @@ export const Listings = ({ title }: Props) => {
 
   const fetchListings = async () => {
     const { data } = await server.fetch<ListingsData>({ query: LISTINGS })
-    console.log(data)
+    setListings(data.listings)
   }
 
   const deleteListing = async () => {
@@ -56,11 +56,19 @@ export const Listings = ({ title }: Props) => {
     console.log(data)
   }
 
+  const listingsList = listings && (
+    <ul>
+      {listings.map((listing) => (
+        <li>{listing.title}</li>
+      ))}
+    </ul>
+  )
+
   return (
     <>
       <div>{title}</div>
+      {listingsList}
       <button onClick={fetchListings}>Query Listings!</button>
-      <button onClick={deleteListing}>Delete a Listing!</button>
     </>
   )
 }
