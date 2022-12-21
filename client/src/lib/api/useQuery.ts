@@ -24,5 +24,5 @@ export const useQuery = <TData = any>(query: string) => {
     fetch()
   }, [fetch])
 
-  return { state, refetch: fetch }
+  return { ...state, refetch: fetch }
 }
