@@ -44,15 +44,17 @@ export const Listings = ({ title }: Props) => {
   ] = useMutation<DeleteListingData, DeleteListingVariables>(DELETE_LISTING)
 
   const handleDeleteListing = async (id: string) => {
-    await server.fetch<DeleteListingData, DeleteListingVariables>({
-      query: DELETE_LISTING,
-      variables: {
-        id,
-      },
-    })
-    // must re-fetch to update the UI with the list w/o deleted item.
-    refetch()
+    try {
+      await deleteListing({ id })
+      refetch()
+    } catch (error) {
+      console.error(error)
+    }
   }
+
+  const deleteListingLoadingMessage = deleteListingLoading && (
+    <h4>Deletion in progress...</h4>
+  )
 
   const listings = data ? data.listings : null
 
@@ -81,6 +83,7 @@ export const Listings = ({ title }: Props) => {
     <>
       <div>{title}</div>
       {listingsList}
+      {deleteListingLoadingMessage}
     </>
   )
 }
