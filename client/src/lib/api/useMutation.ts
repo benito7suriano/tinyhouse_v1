@@ -7,4 +7,10 @@ interface State<TData> {
   error: boolean
 }
 
-export const useMutation = <TData = any, TVariables = any>(query: string) => {}
+export const useMutation = <TData = any, TVariables = any>(query: string) => {
+  const [state, setState] = useState({
+    data: null,
+    loading: false,
+    error: false,
+  })
+}
