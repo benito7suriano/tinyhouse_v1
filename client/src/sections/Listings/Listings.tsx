@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { server, useQuery } from '../../lib/api'
+import { server, useQuery, useMutation } from '../../lib/api'
 import {
   ListingsData,
   DeleteListingData,
@@ -38,7 +38,12 @@ interface Props {
 export const Listings = ({ title }: Props) => {
   const { data, loading, error, refetch } = useQuery<ListingsData>(LISTINGS)
 
-  const deleteListing = async (id: string) => {
+  const [
+    deleteListing,
+    { loading: deleteListingLoading, error: deleteListingError },
+  ] = useMutation<DeleteListingData, DeleteListingVariables>(DELETE_LISTING)
+
+  const handleDeleteListing = async (id: string) => {
     await server.fetch<DeleteListingData, DeleteListingVariables>({
       query: DELETE_LISTING,
       variables: {
@@ -56,7 +61,9 @@ export const Listings = ({ title }: Props) => {
       {listings.map((listing) => (
         <div key={listing.id}>
           <li>{listing.title}</li>
-          <button onClick={() => deleteListing(listing.id)}>Delete</button>
+          <button onClick={() => handleDeleteListing(listing.id)}>
+            Delete
+          </button>
         </div>
       ))}
     </ul>
