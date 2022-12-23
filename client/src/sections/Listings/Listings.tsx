@@ -52,10 +52,6 @@ export const Listings = ({ title }: Props) => {
     }
   }
 
-  const deleteListingLoadingMessage = deleteListingLoading && (
-    <h4>Deletion in progress...</h4>
-  )
-
   const listings = data ? data.listings : null
 
   const listingsList = listings && (
@@ -79,11 +75,22 @@ export const Listings = ({ title }: Props) => {
     return <h2>Uh oh! Something went wrong -- please try again later :(</h2>
   }
 
+  const deleteListingLoadingMessage = deleteListingLoading && (
+    <h4>Deletion in progress...</h4>
+  )
+
+  const deleteListingErrorMessage = deleteListingError && (
+    <h4>
+      Uh oh! Something went wrong while deleting :(. Please try again soon.
+    </h4>
+  )
+
   return (
     <>
       <div>{title}</div>
       {listingsList}
       {deleteListingLoadingMessage}
+      {deleteListingErrorMessage}
     </>
   )
 }
