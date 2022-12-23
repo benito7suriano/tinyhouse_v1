@@ -37,4 +37,6 @@ export const useMutation = <TData = any, TVariables = any>(query: string) => {
       throw console.error(error)
     }
   }
+
+  return [fetch, state]
 }
