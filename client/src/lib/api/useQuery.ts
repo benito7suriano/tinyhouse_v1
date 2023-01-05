@@ -43,7 +43,7 @@ export const useQuery = <TData = any>(query: string): QueryResult<TData> => {
   const fetch = useCallback(() => {
     const fetchApi = async () => {
       try {
-        setState({ data: null, loading: true, error: false })
+        dispatch({ type: 'FETCH' })
 
         const { data, errors } = await server.fetch<TData>({ query })
 
@@ -51,13 +51,9 @@ export const useQuery = <TData = any>(query: string): QueryResult<TData> => {
           throw new Error(errors[0].message)
         }
 
-        setState({ data, loading: false, error: false })
+        dispatch({ type: 'FETCH_SUCCESS', payload: data })
       } catch (error) {
-        setState({
-          data: null,
-          loading: false,
-          error: true,
-        })
+        dispatch({ type: 'FETCH_ERROR' })
         throw console.error(error)
       }
     }
