@@ -17,24 +17,24 @@ type Action<TData> =
   | { type: 'FETCH_SUCCESS'; payload: TData }
   | { type: 'FETCH_ERROR' }
 
-const reducer = <TData>(
-  state: State<TData>,
-  action: Action<TData>,
-): State<TData> => {
-  switch (action.type) {
-    case 'FETCH':
-      return { ...state, loading: true }
-    case 'FETCH_SUCCESS':
-      return { ...state, data: action.payload, loading: false, error: false }
-    case 'FETCH_ERROR':
-      return { ...state, loading: false, error: true }
-    default:
-      throw new Error()
+const reducer =
+  <TData>() =>
+  (state: State<TData>, action: Action<TData>): State<TData> => {
+    switch (action.type) {
+      case 'FETCH':
+        return { ...state, loading: true }
+      case 'FETCH_SUCCESS':
+        return { ...state, data: action.payload, loading: false, error: false }
+      case 'FETCH_ERROR':
+        return { ...state, loading: false, error: true }
+      default:
+        throw new Error()
+    }
   }
-}
 
 export const useQuery = <TData = any>(query: string): QueryResult<TData> => {
-  const [state, setState] = useState<State<TData>>({
+  const fetchReducer = reducer<TData>()
+  const [state, dispatch] = useReducer(fetchReducer, {
     data: null,
     loading: false,
     error: false,
