@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useReducer } from 'react'
 import { server } from './server'
 
 interface State<TData> {
