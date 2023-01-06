@@ -35,7 +35,8 @@ const reducer =
 export const useMutation = <TData = any, TVariables = any>(
   query: string,
 ): MutationTuple<TData, TVariables> => {
-  const [state, setState] = useState<State<TData>>({
+  const fetchReducer = reducer<TData>()
+  const [state, dispatch] = useReducer(fetchReducer, {
     data: null,
     loading: false,
     error: false,
@@ -43,11 +44,7 @@ export const useMutation = <TData = any, TVariables = any>(
 
   const fetch = async (variables?: TVariables) => {
     try {
-      setState({
-        data: null,
-        loading: true,
-        error: false,
-      })
+      dispatch({ type: 'FETCH' })
 
       const { data, errors } = await server.fetch<TData, TVariables>({
         query,
@@ -58,9 +55,9 @@ export const useMutation = <TData = any, TVariables = any>(
         throw new Error(errors[0].message)
       }
 
-      setState({ data, loading: false, error: false })
+      dispatch({ type: 'FETCH_SUCCESS', payload: data })
     } catch (error) {
-      setState({ data: null, loading: false, error: true })
+      dispatch({ type: 'FETCH_ERROR' })
       throw console.error(error)
     }
   }
