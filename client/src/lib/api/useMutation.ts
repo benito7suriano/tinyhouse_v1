@@ -12,6 +12,11 @@ type MutationTuple<TData, TVariables> = [
   State<TData>,
 ]
 
+type Action<TData> =
+  | { type: 'FETCH' }
+  | { type: 'FETCH_SUCCESS'; payload: TData }
+  | { type: 'FETCH_ERROR' }
+
 export const useMutation = <TData = any, TVariables = any>(
   query: string,
 ): MutationTuple<TData, TVariables> => {
