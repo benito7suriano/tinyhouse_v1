@@ -12,7 +12,7 @@
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
     "apollo-boost": "^0.4.9",
-    "graphql": "^15.8.0",
+    "graphql": "14.0.2 - 14.2.0 || ^14.3.1 || ^15.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
@@ -24,7 +24,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "codegen:schema":"npx apollo client:download-schema --endpoint=http://localhost:9000/api"
+    "gen:types": "npx apollo client:codegen --target typescript --localSchemaFile=schema.json --includes src/**/*.tsx --excludes **/__generated__/"
   },
   "eslintConfig": {
     "extends": [
@@ -44,5 +44,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:9000"
+  "proxy": "http://localhost:9000",
+  "devDependencies": {
+    "apollo": "^2.34.0"
+  }
 }
