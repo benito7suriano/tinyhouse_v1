@@ -9,7 +9,7 @@ import {
 } from './types'
 
 const LISTINGS = gql`
-  query {
+  query Listings {
     listings {
       id
       title
