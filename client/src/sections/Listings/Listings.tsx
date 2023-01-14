@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react'
 // import { server, useQuery, useMutation } from '../../lib/api'
 import { useQuery, useMutation, gql } from '@apollo/react-hooks'
+// import {
+//   ListingsData,
+//   DeleteListingData,
+//   DeleteListingVariables,
+//   Listing,
+// } from './types'
 import {
-  ListingsData,
-  DeleteListingData,
-  DeleteListingVariables,
   Listing,
-} from './types'
+  ListingsQuery,
+  Mutation,
+  MutationDeleteListingArgs,
+} from '../../gql/graphql'
 
 const LISTINGS = gql`
   query Listings {
@@ -37,12 +43,12 @@ interface Props {
 }
 
 export const Listings = ({ title }: Props) => {
-  const { data, loading, error, refetch } = useQuery<ListingsData>(LISTINGS)
+  const { data, loading, error, refetch } = useQuery<ListingsQuery>(LISTINGS)
 
   const [
     deleteListing,
     { loading: deleteListingLoading, error: deleteListingError },
-  ] = useMutation<DeleteListingData, DeleteListingVariables>(DELETE_LISTING)
+  ] = useMutation<Mutation, MutationDeleteListingArgs>(DELETE_LISTING)
 
   const handleDeleteListing = async (id: string) => {
     try {
