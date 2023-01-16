@@ -96,7 +96,7 @@ export const Listings = ({ title }: Props) => {
 
   return (
     <div className='listings'>
-      <div>{title}</div>
+      <h2>{title}</h2>
       {listingsList}
       {deleteListingLoadingMessage}
       {deleteListingErrorMessage}
