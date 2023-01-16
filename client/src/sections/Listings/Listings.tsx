@@ -64,16 +64,15 @@ export const Listings = ({ title }: Props) => {
   const listings = data ? data.listings : null
 
   const listingsList = listings && (
-    <ul>
-      {listings.map((listing) => (
-        <div key={listing.id}>
-          <li>{listing.title}</li>
-          <button onClick={() => handleDeleteListing(listing.id)}>
-            Delete
-          </button>
-        </div>
-      ))}
-    </ul>
+    <List
+      itemLayout='horizontal'
+      dataSource={listings}
+      renderItem={(listing) => (
+        <List.Item>
+          <List.Item.Meta title={listing.title} />
+        </List.Item>
+      )}
+    />
   )
 
   if (loading) {
