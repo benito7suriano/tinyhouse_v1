@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-// import { server, useQuery, useMutation } from '../../lib/api'
 import { useQuery, useMutation, gql } from '@apollo/react-hooks'
 // import {
 //   ListingsData,
@@ -13,6 +12,9 @@ import {
   Mutation,
   MutationDeleteListingArgs,
 } from '../../gql/graphql'
+import { List } from 'antd'
+
+// import { server, useQuery, useMutation } from '../../lib/api'
 
 const LISTINGS = gql`
   query Listings {
