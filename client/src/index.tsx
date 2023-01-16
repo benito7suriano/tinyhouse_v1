@@ -7,6 +7,7 @@ import {
 } from '@apollo/react-hooks'
 import reportWebVitals from './reportWebVitals'
 
+import 'antd/dist/reset.css'
 import { Listings } from './sections'
 
 const client = new ApolloClient({ uri: '/api', cache: new InMemoryCache() })

@@ -13,6 +13,7 @@ import {
   MutationDeleteListingArgs,
 } from '../../gql/graphql'
 import { List } from 'antd'
+import './styles/Listings.css'
 
 // import { server, useQuery, useMutation } from '../../lib/api'
 
@@ -94,11 +95,11 @@ export const Listings = ({ title }: Props) => {
   )
 
   return (
-    <>
+    <div className='listings'>
       <div>{title}</div>
       {listingsList}
       {deleteListingLoadingMessage}
       {deleteListingErrorMessage}
-    </>
+    </div>
   )
 }
