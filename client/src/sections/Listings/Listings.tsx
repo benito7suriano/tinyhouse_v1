@@ -12,7 +12,7 @@ import {
   Mutation,
   MutationDeleteListingArgs,
 } from '../../gql/graphql'
-import { List, Avatar } from 'antd'
+import { List, Avatar, Button } from 'antd'
 import './styles/Listings.css'
 
 // import { server, useQuery, useMutation } from '../../lib/api'
@@ -69,7 +69,12 @@ export const Listings = ({ title }: Props) => {
       itemLayout='horizontal'
       dataSource={listings}
       renderItem={(listing) => (
-        <List.Item>
+        <List.Item
+          actions={[
+            <Button onClick={() => handleDeleteListing(listing.id)}>
+              Delete
+            </Button>,
+          ]}>
           <List.Item.Meta
             title={listing.title}
             description={listing.address}
