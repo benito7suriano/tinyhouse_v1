@@ -12,7 +12,7 @@ import {
   Mutation,
   MutationDeleteListingArgs,
 } from '../../gql/graphql'
-import { List, Avatar, Button, Spin } from 'antd'
+import { List, Avatar, Button, Spin, Alert } from 'antd'
 import './styles/Listings.css'
 import { ListingsSkeleton } from './components'
 
@@ -98,22 +98,25 @@ export const Listings = ({ title }: Props) => {
     return <h2>Uh oh! Something went wrong -- please try again later :(</h2>
   }
 
-  const deleteListingLoadingMessage = deleteListingLoading && (
-    <h4>Deletion in progress...</h4>
-  )
+  // const deleteListingLoadingMessage = deleteListingLoading && (
+  //   <h4>Deletion in progress...</h4>
+  // )
 
-  const deleteListingErrorMessage = deleteListingError && (
-    <h4>
-      Uh oh! Something went wrong while deleting :(. Please try again soon.
-    </h4>
+  const deleteListingErrorAlert = deleteListingError && (
+    <Alert
+      type='error'
+      message='Uh oh! Something went wrong while deleting :(. Please try again soon.'
+      className='listings__alert'
+    />
   )
 
   return (
     <div className='listings'>
+      {deleteListingErrorAlert}
       <Spin spinning={deleteListingLoading}>
         <h2>{title}</h2>
         {listingsList}
-        {deleteListingErrorMessage}
+        {/* {deleteListingErrorMessage} */}
       </Spin>
     </div>
   )
