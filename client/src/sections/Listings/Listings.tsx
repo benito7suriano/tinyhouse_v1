@@ -12,7 +12,7 @@ import {
   Mutation,
   MutationDeleteListingArgs,
 } from '../../gql/graphql'
-import { List } from 'antd'
+import { List, Avatar } from 'antd'
 import './styles/Listings.css'
 
 // import { server, useQuery, useMutation } from '../../lib/api'
@@ -70,7 +70,10 @@ export const Listings = ({ title }: Props) => {
       dataSource={listings}
       renderItem={(listing) => (
         <List.Item>
-          <List.Item.Meta title={listing.title} />
+          <List.Item.Meta
+            title={listing.title}
+            avatar={<Avatar src={listing.image} shape='square' size={48} />}
+          />
         </List.Item>
       )}
     />
