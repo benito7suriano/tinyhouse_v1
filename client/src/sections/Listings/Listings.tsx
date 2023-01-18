@@ -72,6 +72,7 @@ export const Listings = ({ title }: Props) => {
         <List.Item>
           <List.Item.Meta
             title={listing.title}
+            description={listing.address}
             avatar={<Avatar src={listing.image} shape='square' size={48} />}
           />
         </List.Item>
