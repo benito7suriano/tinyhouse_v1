@@ -14,6 +14,7 @@ import {
 } from '../../gql/graphql'
 import { List, Avatar, Button, Spin } from 'antd'
 import './styles/Listings.css'
+import { ListingsSkeleton } from './components'
 
 // import { server, useQuery, useMutation } from '../../lib/api'
 
@@ -88,7 +89,9 @@ export const Listings = ({ title }: Props) => {
   )
 
   if (loading) {
-    return <h2>Loading...</h2>
+    ;<div className='listings'>
+      return <ListingsSkeleton title={title} />
+    </div>
   }
 
   if (error) {
