@@ -12,7 +12,7 @@ import {
   Mutation,
   MutationDeleteListingArgs,
 } from '../../gql/graphql'
-import { List, Avatar, Button } from 'antd'
+import { List, Avatar, Button, Spin } from 'antd'
 import './styles/Listings.css'
 
 // import { server, useQuery, useMutation } from '../../lib/api'
@@ -107,10 +107,11 @@ export const Listings = ({ title }: Props) => {
 
   return (
     <div className='listings'>
-      <h2>{title}</h2>
-      {listingsList}
-      {deleteListingLoadingMessage}
-      {deleteListingErrorMessage}
+      <Spin spinning={deleteListingLoading}>
+        <h2>{title}</h2>
+        {listingsList}
+        {deleteListingErrorMessage}
+      </Spin>
     </div>
   )
 }
