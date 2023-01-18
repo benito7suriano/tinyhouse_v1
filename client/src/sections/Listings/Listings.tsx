@@ -71,7 +71,9 @@ export const Listings = ({ title }: Props) => {
       renderItem={(listing) => (
         <List.Item
           actions={[
-            <Button onClick={() => handleDeleteListing(listing.id)}>
+            <Button
+              type='primary'
+              onClick={() => handleDeleteListing(listing.id)}>
               Delete
             </Button>,
           ]}>
