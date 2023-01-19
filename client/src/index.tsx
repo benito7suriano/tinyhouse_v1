@@ -6,18 +6,43 @@ import {
   InMemoryCache,
 } from '@apollo/react-hooks'
 import reportWebVitals from './reportWebVitals'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import 'antd/dist/reset.css'
-import { Listings } from './sections'
+import { Home, Host, Listing, Listings, NotFound, User } from './sections'
 import './styles/index.css'
 
 const client = new ApolloClient({ uri: '/api', cache: new InMemoryCache() })
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Home />,
+    errorElement: <NotFound />,
+  },
+  {
+    path: '/host',
+    element: <Host />,
+  },
+  {
+    path: '/listing/:id',
+    element: <Listing />,
+  },
+  {
+    path: '/listings/:location?',
+    element: <Listings />,
+  },
+  {
+    path: '/user/:id',
+    element: <User />,
+  },
+])
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <Listings title={'TinyHouse Listings'} />
+      <RouterProvider router={router} />
     </ApolloProvider>
   </React.StrictMode>,
 )
