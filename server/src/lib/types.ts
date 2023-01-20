@@ -12,13 +12,17 @@ export interface BookingsIndex {
   [key: string]: BookingsIndexYear
 }
 
-export interface Booking {
-  _id: ObjectId
-}
-
 export enum ListingType {
   Apartment = 'APARTMENT',
   House = 'HOUSE',
+}
+
+export interface Booking {
+  _id: ObjectId
+  listing: ObjectId
+  tenant: string
+  checkIn: string
+  checkOut: string
 }
 
 export interface Listing {
