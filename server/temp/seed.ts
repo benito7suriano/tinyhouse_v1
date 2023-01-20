@@ -4,7 +4,7 @@ dotenv.config()
 import { ObjectId } from 'mongodb'
 import { exit } from 'process'
 
-import { connectDatabase } from '../src/database/index'
+import { connectDatabase } from '../src/database'
 import { Listing, ListingType, User } from '../src/lib/types'
 
 const listings: Listing[] = [
@@ -797,6 +797,7 @@ const seed = async () => {
 
     console.log(`[seed] : success!`)
   } catch (error) {
+    console.error(error)
     throw new Error(`Failed to seed database.`)
   }
 

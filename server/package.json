@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "scripts": {
     "start": "nodemon src/index.ts",
-    "seed": "ts-node temp/seed.ts",
+    "clear": "ts-node temp/clear.ts",
+    "seed": "ts-node temp/clear && ts-node temp/seed.ts",
     "build": "tsc -p ./"
   },
   "dependencies": {
