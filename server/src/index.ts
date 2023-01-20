@@ -11,6 +11,10 @@ import { json } from 'body-parser'
 import { typeDefs, resolvers } from './graphql/index'
 
 import { connectDatabase } from './database/index'
+import { listingResolvers } from './graphql/resolvers/Listing'
+
+import { ObjectId } from 'mongodb'
+import { ListingType } from './lib/types'
 
 interface MyContext {
   token?: string
@@ -40,6 +44,13 @@ const mount = async (app: Application) => {
       console.log(`🚀 Server ready at http://localhost:${process.env.PORT}/api`)
     })
   })
+
+  // CHECKING CONNECTION TO MONGODB CLUSTER
+  // const listings = await db.listings.find({}).toArray()
+  // console.log(listings)
+
+  // CHECKING IF WE CAN SEED
+  // await db.listings.insertOne({ //...})
 }
 
 mount(express())
