@@ -1,5 +1,5 @@
 import { MongoClient } from 'mongodb'
-import { Database } from '../lib/types'
+import { Database, User } from '../lib/types'
 
 const user = process.env.MONGODB_CLIENT_USER
 const password = process.env.MONGODB_CLIENT_PASSWORD
@@ -17,5 +17,6 @@ export const connectDatabase = async (): Promise<Database> => {
 
   return {
     listings: db.collection('test_listings'),
+    users: db.collection<User>('users'),
   }
 }
