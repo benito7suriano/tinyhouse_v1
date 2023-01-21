@@ -11,7 +11,7 @@ import { json } from 'body-parser'
 import { typeDefs, resolvers } from './graphql/index'
 
 import { connectDatabase } from './database/index'
-import { listingResolvers } from './graphql/resolvers/Listing'
+// import { listingResolvers } from './graphql/resolvers/Listing'
 
 import { ObjectId } from 'mongodb'
 import { ListingType } from './lib/types'

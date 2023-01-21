@@ -16,10 +16,11 @@ export const typeDefs = `#qgl
   }
 
   type Query {
-    listings: [Listing!]!
+    authUrl: String!
   }
 
   type Mutation {
-    deleteListing(id:ID!): Listing!
+    logIn: String!
+    logOut: String!
   }
 `
