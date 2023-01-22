@@ -15,12 +15,24 @@ export const typeDefs = `#qgl
     rating: Int!
   }
 
+  type Viewer {
+    id: ID
+    token: String
+    avatar: String
+    hasWallet: Boolean
+    didRequest: Boolean!
+  }
+
+  input LogInInput {
+    code: String!
+  }
+
   type Query {
     authUrl: String!
   }
 
   type Mutation {
-    logIn: String!
-    logOut: String!
+    logIn(input: LogInInput): Viewer!
+    logOut: Viewer!
   }
 `
