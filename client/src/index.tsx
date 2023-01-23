@@ -9,7 +9,15 @@ import reportWebVitals from './reportWebVitals'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import 'antd/dist/reset.css'
-import { Home, Host, Listing, Listings, NotFound, User } from './sections'
+import {
+  Home,
+  Host,
+  Listing,
+  Listings,
+  Login,
+  NotFound,
+  User,
+} from './sections'
 import './styles/index.css'
 
 const client = new ApolloClient({ uri: '/api', cache: new InMemoryCache() })
@@ -35,6 +43,10 @@ const router = createBrowserRouter([
   {
     path: '/user/:id',
     element: <User />,
+  },
+  {
+    path: '/login',
+    element: <Login />,
   },
 ])
 
