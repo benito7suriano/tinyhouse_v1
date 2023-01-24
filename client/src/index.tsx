@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ReactDOM from 'react-dom/client'
 import {
   ApolloClient,
@@ -6,8 +6,9 @@ import {
   InMemoryCache,
 } from '@apollo/react-hooks'
 import reportWebVitals from './reportWebVitals'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
+import { Viewer } from './lib/types'
 import 'antd/dist/reset.css'
 import {
   Home,
@@ -22,40 +23,36 @@ import './styles/index.css'
 
 const client = new ApolloClient({ uri: '/api', cache: new InMemoryCache() })
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Home />,
-    errorElement: <NotFound />,
-  },
-  {
-    path: '/host',
-    element: <Host />,
-  },
-  {
-    path: '/listing/:id',
-    element: <Listing />,
-  },
-  {
-    path: '/listings/:location?',
-    element: <Listings />,
-  },
-  {
-    path: '/user/:id',
-    element: <User />,
-  },
-  {
-    path: '/login',
-    element: <Login />,
-  },
-])
+const initialViewer: Viewer = {
+  id: null,
+  token: null,
+  avatar: null,
+  hasWallet: null,
+  didRequest: false,
+}
+
+const App = () => {
+  const [viewer, setViewer] = useState(initialViewer)
+  return (
+    <Router>
+      <Routes>
+        {/* React Router v6 doesn't use exact, because all routes match exactly by default */}
+        <Route path='/' element={<Home />} />
+        <Route path='/host' element={<Host />} />
+        <Route path='/listing/:id' element={<Listing />} />
+        <Route path='/listings/:location?' element={<Listings />} />
+        <Route path='/user/:id' element={<User />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/*' element={<NotFound />} />
+      </Routes>
+    </Router>
+  )
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
-      <RouterProvider router={router} />
-    </ApolloProvider>
+    <App />
   </React.StrictMode>,
 )
 

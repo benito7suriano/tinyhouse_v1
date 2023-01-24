@@ -1,5 +1,10 @@
 import React from 'react'
 
 export const NotFound = () => {
-  return <div>NotFound</div>
+  return (
+    <div id='error-page'>
+      <h1>Oops!</h1>
+      <p>Sorry, an unexpected error has occurred.</p>
+    </div>
+  )
 }
