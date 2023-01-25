@@ -1,12 +1,33 @@
 import React from 'react'
 import { Layout, Card, Typography } from 'antd'
+import { useApolloClient } from '@apollo/react-hooks'
 
 import googleLogo from './assets/google_logo.jpg'
+import { Viewer } from '../../lib/types'
+import { AUTH_URL } from '../../lib/graphql/queries/AuthUrl'
+import { AuthUrlQuery } from '../../gql/graphql'
 
 const { Content } = Layout
 const { Text, Title } = Typography
 
-export const Login = () => {
+interface Props {
+  setViewer: (viewer: Viewer) => void
+}
+
+export const Login = ({ setViewer }: Props) => {
+  const client = useApolloClient()
+
+  const handleAuthorize = async () => {
+    try {
+      const { data } = await client.query<AuthUrlQuery>({
+        query: AUTH_URL,
+      })
+      window.location.href = data.authUrl
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <Content className='log-in'>
       <Card className='log-in-card'>
@@ -21,7 +42,9 @@ export const Login = () => {
           </Title>
           <Text>Sign in with Google to start booking available rentals!</Text>
         </div>
-        <button className='log-in-card__google-button'>
+        <button
+          className='log-in-card__google-button'
+          onClick={handleAuthorize}>
           <img
             src={googleLogo}
             alt='Google Logo'

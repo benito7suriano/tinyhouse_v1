@@ -32,7 +32,7 @@ const initialViewer: Viewer = {
 }
 
 const App = () => {
-  const [viewer, setViewer] = useState(initialViewer)
+  const [viewer, setViewer] = useState<Viewer>(initialViewer)
   return (
     <Router>
       <Routes>
@@ -42,7 +42,8 @@ const App = () => {
         <Route path='/listing/:id' element={<Listing />} />
         <Route path='/listings/:location?' element={<Listings />} />
         <Route path='/user/:id' element={<User />} />
-        <Route path='/login' element={<Login />} />
+        {/* In React Router v6 we switched from using v5's <Route component> and <Route render> APIs to <Route element>. */}
+        <Route path='/login' element={<Login setViewer={setViewer} />} />
         <Route path='/*' element={<NotFound />} />
       </Routes>
     </Router>
@@ -52,7 +53,9 @@ const App = () => {
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
-    <App />
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>
   </React.StrictMode>,
 )
 
