@@ -1,8 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { Layout, Card, Typography } from 'antd'
 import { useApolloClient, useMutation } from '@apollo/react-hooks'
-
-import googleLogo from './assets/google_logo.jpg'
 import { Viewer } from '../../lib/types'
 import { AUTH_URL } from '../../lib/graphql/queries/AuthUrl'
 import { AuthUrlQuery as AuthUrlData } from '../../gql/graphql'
@@ -11,6 +8,10 @@ import {
   LogInMutation as LogInData,
   LogInMutationVariables,
 } from '../../gql/graphql'
+
+// Ant Design & Assets
+import { Layout, Card, Typography, Spin } from 'antd'
+import googleLogo from './assets/google_logo.jpg'
 const { Content } = Layout
 const { Text, Title } = Typography
 
@@ -53,6 +54,12 @@ export const Login = ({ setViewer }: Props) => {
       console.error(error)
     }
   }
+
+  logInLoading && (
+    <Content className='log-in'>
+      <Spin size='large' tip='Logging you in...' />
+    </Content>
+  )
 
   return (
     <Content className='log-in'>
