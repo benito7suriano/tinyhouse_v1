@@ -1,12 +1,16 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Layout, Card, Typography } from 'antd'
-import { useApolloClient } from '@apollo/react-hooks'
+import { useApolloClient, useMutation } from '@apollo/react-hooks'
 
 import googleLogo from './assets/google_logo.jpg'
 import { Viewer } from '../../lib/types'
 import { AUTH_URL } from '../../lib/graphql/queries/AuthUrl'
-import { AuthUrlQuery } from '../../gql/graphql'
-
+import { AuthUrlQuery as AuthUrlData } from '../../gql/graphql'
+import { LOG_IN } from '../../lib/graphql/mutations/LogIn'
+import {
+  LogInMutation as LogInData,
+  LogInMutationVariables,
+} from '../../gql/graphql'
 const { Content } = Layout
 const { Text, Title } = Typography
 
@@ -16,10 +20,32 @@ interface Props {
 
 export const Login = ({ setViewer }: Props) => {
   const client = useApolloClient()
+  const [logIn, { data: LogInData, loading: logInLoading, error: logInError }] =
+    useMutation<LogInData, LogInMutationVariables>(LOG_IN, {
+      onCompleted: (data) => {
+        if (data && data.logIn) {
+          setViewer(data.logIn)
+        }
+      },
+    })
+  const logInRef = useRef(logIn)
+
+  useEffect(() => {
+    const code = new URL(window.location.href).searchParams.get('code')
+    if (code) {
+      // Since the login request is being instantiated within the component, we won't add it as a dependency. This is why we're using the `useRef` hook. It accepts an argument with which it returns a mutuable object which will persist for the lifetime of the component.
+      // The `logInRef.current` property will reference the original function regardless of how many renders happen again. Our `useEffect` hook recognizes this and doesn't require us to specify the `logInRef` property in the dependencies list.
+      logInRef.current({
+        variables: {
+          input: { code },
+        },
+      })
+    }
+  }, [])
 
   const handleAuthorize = async () => {
     try {
-      const { data } = await client.query<AuthUrlQuery>({
+      const { data } = await client.query<AuthUrlData>({
         query: AUTH_URL,
       })
       window.location.href = data.authUrl

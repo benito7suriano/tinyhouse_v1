@@ -39,7 +39,7 @@ export type Mutation = {
 
 
 export type MutationLogInArgs = {
-  input?: InputMaybe<LogInInput>;
+  input: InputMaybe<LogInInput>;
 };
 
 export type Query = {
@@ -49,24 +49,24 @@ export type Query = {
 
 export type Viewer = {
   __typename?: 'Viewer';
-  avatar?: Maybe<Scalars['String']>;
+  avatar: Maybe<Scalars['String']>;
   didRequest: Scalars['Boolean'];
-  hasWallet?: Maybe<Scalars['Boolean']>;
-  id?: Maybe<Scalars['ID']>;
-  token?: Maybe<Scalars['String']>;
+  hasWallet: Maybe<Scalars['Boolean']>;
+  id: Maybe<Scalars['ID']>;
+  token: Maybe<Scalars['String']>;
 };
 
 export type LogInMutationVariables = Exact<{
-  input?: InputMaybe<LogInInput>;
+  input: InputMaybe<LogInInput>;
 }>;
 
 
-export type LogInMutation = { __typename?: 'Mutation', logIn: { __typename?: 'Viewer', id?: string | null, token?: string | null, avatar?: string | null, hasWallet?: boolean | null, didRequest: boolean } };
+export type LogInMutation = { __typename?: 'Mutation', logIn: { __typename?: 'Viewer', id: string | null, token: string | null, avatar: string | null, hasWallet: boolean | null, didRequest: boolean } };
 
 export type LogOutMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type LogOutMutation = { __typename?: 'Mutation', logOut: { __typename?: 'Viewer', id?: string | null, token?: string | null, avatar?: string | null, hasWallet?: boolean | null, didRequest: boolean } };
+export type LogOutMutation = { __typename?: 'Mutation', logOut: { __typename?: 'Viewer', id: string | null, token: string | null, avatar: string | null, hasWallet: boolean | null, didRequest: boolean } };
 
 export type AuthUrlQueryVariables = Exact<{ [key: string]: never; }>;
 
