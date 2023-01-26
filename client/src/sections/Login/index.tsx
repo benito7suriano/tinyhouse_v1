@@ -9,6 +9,13 @@ import {
   LogInMutationVariables,
 } from '../../gql/graphql'
 
+// Components
+import { ErrorBanner } from '../../lib/components'
+import {
+  displaySuccessNotification,
+  displayErrorMessage,
+} from '../../lib/utils'
+
 // Ant Design & Assets
 import { Layout, Card, Typography, Spin } from 'antd'
 import googleLogo from './assets/google_logo.jpg'
@@ -26,6 +33,7 @@ export const Login = ({ setViewer }: Props) => {
       onCompleted: (data) => {
         if (data && data.logIn) {
           setViewer(data.logIn)
+          displaySuccessNotification(`You've successfully logged in!`)
         }
       },
     })
@@ -52,8 +60,17 @@ export const Login = ({ setViewer }: Props) => {
       window.location.href = data.authUrl
     } catch (error) {
       console.error(error)
+      displayErrorMessage(
+        `Sorry! We weren't able to log you in. Please try again later!`,
+      )
     }
   }
+
+  const logInErrorBannerElement = logInError && (
+    <ErrorBanner
+      description={`We weren't able to log you in. Please try again soon.`}
+    />
+  )
 
   logInLoading && (
     <Content className='log-in'>
@@ -63,6 +80,7 @@ export const Login = ({ setViewer }: Props) => {
 
   return (
     <Content className='log-in'>
+      {logInErrorBannerElement}
       <Card className='log-in-card'>
         <div className='log-in-card__intro'>
           <Title level={3} className='log-in-card__intro-title'>
