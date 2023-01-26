@@ -8,6 +8,7 @@ import {
   LogInMutation as LogInData,
   LogInMutationVariables,
 } from '../../gql/graphql'
+import { Navigate } from 'react-router-dom'
 
 // Components
 import { ErrorBanner } from '../../lib/components'
@@ -19,6 +20,7 @@ import {
 // Ant Design & Assets
 import { Layout, Card, Typography, Spin } from 'antd'
 import googleLogo from './assets/google_logo.jpg'
+
 const { Content } = Layout
 const { Text, Title } = Typography
 
@@ -77,6 +79,11 @@ export const Login = ({ setViewer }: Props) => {
       <Spin size='large' tip='Logging you in...' />
     </Content>
   )
+
+  if (LogInData && LogInData.logIn) {
+    const { id: viewerId } = LogInData.logIn
+    return <Navigate to={`/user/${viewerId}`} />
+  }
 
   return (
     <Content className='log-in'>
