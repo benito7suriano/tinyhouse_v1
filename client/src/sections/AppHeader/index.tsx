@@ -5,8 +5,13 @@ import { Link } from 'react-router-dom'
 import logo from './assets/hosty-logo.png'
 
 import { MenuItems } from './components'
+import { Viewer } from '../../lib/types'
 
-export const AppHeader = () => {
+interface Props {
+  viewer: Viewer
+}
+
+export const AppHeader = ({ viewer }: Props) => {
   return (
     <Header className='app-header'>
       <div className='app-header__logo-search-section'>
@@ -17,7 +22,7 @@ export const AppHeader = () => {
         </div>
       </div>
       <div className='app-header__menu-section'>
-        <MenuItems />
+        <MenuItems viewer={viewer} />
       </div>
     </Header>
   )

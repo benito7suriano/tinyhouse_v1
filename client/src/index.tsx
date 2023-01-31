@@ -38,7 +38,7 @@ const App = () => {
   return (
     <Router>
       <Affix offsetTop={0} className='app__affix-header'>
-        <AppHeader />
+        <AppHeader viewer={viewer} />
       </Affix>
       <React.StrictMode>
         <Routes>
