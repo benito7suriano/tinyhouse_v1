@@ -4,6 +4,7 @@ import {
   ApolloClient,
   ApolloProvider,
   InMemoryCache,
+  useMutation,
 } from '@apollo/react-hooks'
 import reportWebVitals from './reportWebVitals'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
@@ -23,6 +24,12 @@ import {
 } from './sections'
 import './styles/index.css'
 
+import { LOG_IN } from './lib/graphql/mutations/LogIn'
+import {
+  LogInMutation as LogInData,
+  LogInMutationVariables,
+} from './gql/graphql'
+
 const client = new ApolloClient({ uri: '/api', cache: new InMemoryCache() })
 
 const initialViewer: Viewer = {
@@ -35,6 +42,16 @@ const initialViewer: Viewer = {
 
 const App = () => {
   const [viewer, setViewer] = useState<Viewer>(initialViewer)
+  const [logIn, { error }] = useMutation<LogInData, LogInMutationVariables>(
+    LOG_IN,
+    {
+      onCompleted: (data) => {
+        if (data && data.logIn) {
+          setViewer(data.logIn)
+        }
+      },
+    },
+  )
   return (
     <Router>
       <Affix offsetTop={0} className='app__affix-header'>
