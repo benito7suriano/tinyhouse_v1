@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import ReactDOM from 'react-dom/client'
 import {
   ApolloClient,
@@ -52,6 +52,13 @@ const App = () => {
       },
     },
   )
+
+  const logInRef = useRef(logIn)
+
+  useEffect(() => {
+    logInRef.current()
+  }, [])
+
   return (
     <Router>
       <Affix offsetTop={0} className='app__affix-header'>
