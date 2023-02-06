@@ -86,7 +86,7 @@ const logInViaGoogle = async (
     viewer = await db.users.findOne({ _id: insertResultId })
   }
 
-  // set a new cookie with the key of `viewer`. For the value of the cookie, we'll use the `userId` of the user we've obtained.
+  // Set a new cookie with the key of `viewer`. For the value of the cookie, we'll use the `userId` of the user we've obtained.
   // We could take an additional security step here to encode the `userId` value as we set it as the value of the cookie and decode it when we attempt to retrieve the cookie. Since we've already signing the cookie, we won't take this additional step.
   res.cookie('viewer', userId, {
     ...cookieOptions,
