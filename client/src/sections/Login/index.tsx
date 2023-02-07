@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { useApolloClient, useMutation } from '@apollo/react-hooks'
 import { Viewer } from '../../lib/types'
-import { AUTH_URL } from '../../lib/graphql/queries/AuthUrl'
+import { AUTH_URL } from '../../lib/graphql/queries/'
 import { AuthUrlQuery as AuthUrlData } from '../../gql/graphql'
 import { LOG_IN } from '../../lib/graphql/mutations/LogIn'
 import {
