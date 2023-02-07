@@ -27,9 +27,9 @@ export const userResolvers: IResolvers = {
         // TODO: WARNING... Authorize function not working currently, all users are authorized by default.
         const viewer = await authorize(db, req)
 
-        // if (viewer && viewer._id === user._id) {
-        //   user.authorized = true
-        // }
+        if (viewer && viewer._id === user._id) {
+          user.authorized = true
+        }
 
         user.authorized = true
 
@@ -83,8 +83,6 @@ export const userResolvers: IResolvers = {
     ): Promise<UserListingsData | null> => {
       console.log(user.authorized)
       try {
-        if (!user.authorized) return null
-
         const data: UserListingsData = {
           total: 0,
           result: [],
