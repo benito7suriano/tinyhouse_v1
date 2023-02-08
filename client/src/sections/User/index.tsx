@@ -1,8 +1,13 @@
 import React from 'react'
 import { useQuery } from '@apollo/react-hooks'
+import { useParams } from 'react-router-dom'
+import { Layout, Row, Col } from 'antd'
+
 import { USER } from '../../lib/graphql/queries'
 import { UserQuery as UserData, UserQueryVariables } from '../../gql/graphql'
-import { useParams } from 'react-router-dom'
+import { UserProfile } from './components'
+
+const { Content } = Layout
 
 export const User = () => {
   const { id } = useParams()
@@ -13,9 +18,14 @@ export const User = () => {
     },
   )
 
+  const user = data ? data.user : null
+  const userProfileElement = user && <UserProfile user={user} />
+
   return (
-    <div className=''>
-      <h2>User</h2>
-    </div>
+    <Content className='user'>
+      <Row gutter={12} typeof='flex' justify={'space-between'}>
+        <Col xs={24}>{userProfileElement}</Col>
+      </Row>
+    </Content>
   )
 }
