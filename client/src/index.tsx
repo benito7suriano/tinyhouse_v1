@@ -113,7 +113,8 @@ const App = () => {
           <Route path='/host' element={<Host />} />
           <Route path='/listing/:id' element={<Listing />} />
           <Route path='/listings/:location?' element={<Listings />} />
-          <Route path='/user/:id' element={<User />} />
+          {/* React Router v6 swtiched from `render` or `component` to `element` */}
+          <Route path='/user/:id' element={<User viewer={viewer} />} />
           {/* In React Router v6 we switched from using v5's <Route component> and <Route render> APIs to <Route element>. */}
           <Route path='/login' element={<Login setViewer={setViewer} />} />
           <Route path='/*' element={<NotFound />} />

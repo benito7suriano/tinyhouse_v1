@@ -6,10 +6,15 @@ import { Layout, Row, Col } from 'antd'
 import { USER } from '../../lib/graphql/queries'
 import { UserQuery as UserData, UserQueryVariables } from '../../gql/graphql'
 import { UserProfile } from './components'
+import { Viewer } from '../../lib/types'
 
 const { Content } = Layout
 
-export const User = () => {
+interface Props {
+  viewer: Viewer
+}
+
+export const User = ({ viewer }: Props) => {
   const { id } = useParams()
   const { data, loading, error } = useQuery<UserData, UserQueryVariables>(
     USER,
@@ -19,7 +24,10 @@ export const User = () => {
   )
 
   const user = data ? data.user : null
-  const userProfileElement = user && <UserProfile user={user} />
+  const viewerIsUser = viewer.id === id
+  const userProfileElement = user && (
+    <UserProfile user={user} viewerIsUser={viewerIsUser} />
+  )
 
   return (
     <Content className='user'>
