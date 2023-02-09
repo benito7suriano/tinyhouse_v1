@@ -7,6 +7,7 @@ import { USER } from '../../lib/graphql/queries'
 import { UserQuery as UserData, UserQueryVariables } from '../../gql/graphql'
 import { UserProfile } from './components'
 import { Viewer } from '../../lib/types'
+import { ErrorBanner, PageSkeleton } from '../../lib/components'
 
 const { Content } = Layout
 
@@ -22,6 +23,23 @@ export const User = ({ viewer }: Props) => {
       variables: { id: id! },
     },
   )
+
+  if (loading) {
+    return (
+      <Content className='user'>
+        <PageSkeleton />
+      </Content>
+    )
+  }
+
+  if (error) {
+    return (
+      <Content>
+        <ErrorBanner description='This user may not exist or we have encountered a problem. Please try again soon.' />
+        <PageSkeleton />
+      </Content>
+    )
+  }
 
   const user = data ? data.user : null
   const viewerIsUser = viewer.id === id
