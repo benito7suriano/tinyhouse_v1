@@ -8,6 +8,7 @@ import { UserQuery as UserData, UserQueryVariables } from '../../gql/graphql'
 import { UserProfile } from './components'
 import { Viewer } from '../../lib/types'
 import { ErrorBanner, PageSkeleton } from '../../lib/components'
+import { UserListings, UserBookings } from './components'
 
 const { Content } = Layout
 
@@ -52,10 +53,35 @@ export const User = ({ viewer }: Props) => {
     <UserProfile user={user} viewerIsUser={viewerIsUser} />
   )
 
+  const userListings = user ? user.listings : null
+  const userBookings = user ? user.bookings : null
+
+  const userListingsElement = userListings && (
+    <UserListings
+      userListings={userListings}
+      listingsPage={listingsPage}
+      limit={PAGE_LIMIT}
+      setListingsPage={setListingsPage}
+    />
+  )
+
+  const userBookingsElement = userBookings && (
+    <UserBookings
+      userBookings={userBookings}
+      bookingsPage={bookingsPage}
+      limit={PAGE_LIMIT}
+      setBookingsPage={setBookingsPage}
+    />
+  )
+
   return (
     <Content className='user'>
       <Row gutter={12} typeof='flex' justify={'space-between'}>
         <Col xs={24}>{userProfileElement}</Col>
+        <Col>
+          {userListingsElement}
+          {userBookingsElement}
+        </Col>
       </Row>
     </Content>
   )
