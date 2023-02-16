@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import { useParams } from 'react-router-dom'
 import { Layout, Row, Col } from 'antd'
@@ -15,12 +15,17 @@ interface Props {
   viewer: Viewer
 }
 
+const PAGE_LIMIT = 4
+
 export const User = ({ viewer }: Props) => {
   const { id } = useParams()
+  const [listingsPage, setListingsPage] = useState(1)
+  const [bookingsPage, setBookingsPage] = useState(1)
+
   const { data, loading, error } = useQuery<UserData, UserQueryVariables>(
     USER,
     {
-      variables: { id: id! },
+      variables: { id: id!, bookingsPage, listingsPage, limit: PAGE_LIMIT },
     },
   )
 

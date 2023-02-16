@@ -25,6 +25,17 @@ export const USER = gql`
           checkOut
         }
       }
+      listings(limit: $limit, page: $listingsPage) {
+        total
+        result {
+          id
+          title
+          image
+          address
+          price
+          numOfGuests
+        }
+      }
     }
   }
 `
