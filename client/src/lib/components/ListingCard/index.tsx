@@ -29,7 +29,8 @@ export const ListingCard = ({ listing }: Props) => {
             style={{ backgroundImage: `url(${image})` }}
             className='listing-card__cover-img'
           />
-        }>
+        }
+        className={'listing-card__general'}>
         <div className='listing-card__details'>
           <div className='listing-card__description'>
             <Title className='listing-card__price'>
@@ -42,7 +43,7 @@ export const ListingCard = ({ listing }: Props) => {
             </Text>
           </div>
           <div className='listing-card__dimensions listing-card__dimensions--guests'>
-            <UserOutlined type='user' />
+            <UserOutlined type='user' style={{ color: iconColor }} />
             <Text>{numOfGuests} guests</Text>
           </div>
         </div>
