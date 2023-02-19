@@ -2,6 +2,8 @@ import { IResolvers } from '@graphql-tools/utils'
 import { Database, Listing } from '../../../lib/types'
 import { ListingArgs } from './types'
 import { ObjectId } from 'mongodb'
+import { authorize } from '../../../lib/utils'
+import { Request } from 'express'
 
 export const listingResolvers: IResolvers = {
   Query: {
@@ -14,6 +16,11 @@ export const listingResolvers: IResolvers = {
         const listing = await db.listings.findOne({ _id: new ObjectId(id) })
         if (!listing) {
           throw new Error('Listing cannot be found')
+        }
+
+        const viewer = await authorize(db, req)
+        if (viewer && viewer._id === listing.host) {
+          listing.authorized = true
         }
 
         return listing
