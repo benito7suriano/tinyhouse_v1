@@ -24,7 +24,6 @@ export const userResolvers: IResolvers = {
           throw new Error('User cannot be found')
         }
 
-        // TODO: WARNING... Authorize function not working currently, all users are authorized by default.
         const viewer = await authorize(db, req)
 
         if (viewer && viewer._id === user._id) {
