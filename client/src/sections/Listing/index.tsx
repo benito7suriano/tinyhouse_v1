@@ -43,5 +43,8 @@ export const Listing = () => {
     )
   }
 
+  const listing = data ? data.listing : null
+  const listingBookings = listing ? listing.bookings : null
+
   return <div>Listing</div>
 }
