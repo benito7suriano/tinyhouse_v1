@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Card, DatePicker, Divider, Typography } from 'antd'
-import { Dayjs } from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 import { formatListingPrice } from '../../../../lib/utils'
 
 const { Paragraph, Title } = Typography
@@ -20,6 +20,15 @@ export const ListingCreateBooking = ({
   setCheckInDate,
   setCheckOutDate,
 }: Props) => {
+  const disabledDate = (currentDate?: Dayjs) => {
+    if (currentDate) {
+      const dateIsBeforeEndOfDay = currentDate.isBefore(dayjs())
+      return dateIsBeforeEndOfDay
+    } else {
+      return false
+    }
+  }
+
   return (
     <div className='listing-booking'>
       <Card className='listing-booking__card'>
@@ -36,6 +45,7 @@ export const ListingCreateBooking = ({
             <DatePicker
               value={checkInDate ? checkInDate : undefined}
               format={'YYYY/MM/DD'}
+              disabledDate={disabledDate}
               onChange={(dateValue) => setCheckInDate(dateValue)}
             />
           </div>
@@ -44,6 +54,7 @@ export const ListingCreateBooking = ({
             <DatePicker
               value={checkOutDate ? checkOutDate : undefined}
               format={'YYYY/MM/DD'}
+              disabledDate={disabledDate}
               onChange={(dateValue) => setCheckOutDate(dateValue)}
             />
           </div>
