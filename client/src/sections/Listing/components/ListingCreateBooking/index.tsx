@@ -33,11 +33,19 @@ export const ListingCreateBooking = ({
           <Divider />
           <div className='listing-booking__card-date-picker'>
             <Paragraph strong>Check In</Paragraph>
-            <DatePicker value={checkInDate ? checkInDate : undefined} />
+            <DatePicker
+              value={checkInDate ? checkInDate : undefined}
+              format={'YYYY/MM/DD'}
+              onChange={(dateValue) => setCheckInDate(dateValue)}
+            />
           </div>
           <div className='listing-booking__card-date-picker'>
             <Paragraph strong>Check Out</Paragraph>
-            <DatePicker value={checkOutDate ? checkOutDate : undefined} />
+            <DatePicker
+              value={checkOutDate ? checkOutDate : undefined}
+              format={'YYYY/MM/DD'}
+              onChange={(dateValue) => setCheckOutDate(dateValue)}
+            />
           </div>
         </div>
         <Divider />
