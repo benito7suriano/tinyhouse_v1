@@ -13,13 +13,15 @@ import {
   ListingBookings,
   ListingCreateBooking,
 } from './components'
-
+import { Dayjs } from 'dayjs'
 const { Content } = Layout
 const PAGE_LIMIT = 3
 
 export const Listing = () => {
   const { id } = useParams()
   const [bookingsPage, setBookingsPage] = useState(1)
+  const [checkInDate, setCheckInDate] = useState<Dayjs | null>(null)
+  const [checkOutDate, setCheckOutDate] = useState<Dayjs | null>(null)
   const { loading, data, error } = useQuery<ListingData, ListingQueryVariables>(
     LISTING,
     {
@@ -121,7 +123,13 @@ export const Listing = () => {
   )
 
   const ListingCreateBookingElement = listing && (
-    <ListingCreateBooking price={listing.price} />
+    <ListingCreateBooking
+      price={listing.price}
+      checkInDate={checkInDate}
+      checkOutDate={checkOutDate}
+      setCheckInDate={setCheckInDate}
+      setCheckOutDate={setCheckOutDate}
+    />
   )
 
   return (

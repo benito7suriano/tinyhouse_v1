@@ -1,14 +1,25 @@
 import React from 'react'
-import { Button, Card, Divider, Typography } from 'antd'
+import { Button, Card, DatePicker, Divider, Typography } from 'antd'
+import { Dayjs } from 'dayjs'
 import { formatListingPrice } from '../../../../lib/utils'
 
 const { Paragraph, Title } = Typography
 
 interface Props {
   price: number
+  checkInDate: Dayjs | null
+  checkOutDate: Dayjs | null
+  setCheckInDate: (checkInDate: Dayjs | null) => void
+  setCheckOutDate: (checkOutDate: Dayjs | null) => void
 }
 
-export const ListingCreateBooking = ({ price }: Props) => {
+export const ListingCreateBooking = ({
+  price,
+  checkInDate,
+  checkOutDate,
+  setCheckInDate,
+  setCheckOutDate,
+}: Props) => {
   return (
     <div className='listing-booking'>
       <Card className='listing-booking__card'>
@@ -22,9 +33,11 @@ export const ListingCreateBooking = ({ price }: Props) => {
           <Divider />
           <div className='listing-booking__card-date-picker'>
             <Paragraph strong>Check In</Paragraph>
+            <DatePicker value={checkInDate ? checkInDate : undefined} />
           </div>
           <div className='listing-booking__card-date-picker'>
             <Paragraph strong>Check Out</Paragraph>
+            <DatePicker value={checkOutDate ? checkOutDate : undefined} />
           </div>
         </div>
         <Divider />
