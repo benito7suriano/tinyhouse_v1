@@ -120,7 +120,9 @@ export const Listing = () => {
     />
   )
 
-  const ListingCreateBookingElement = <ListingCreateBooking />
+  const ListingCreateBookingElement = listing && (
+    <ListingCreateBooking price={listing.price} />
+  )
 
   return (
     <Content className='listings'>
