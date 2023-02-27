@@ -8,7 +8,11 @@ import {
   ListingQueryVariables,
 } from '../../gql/graphql'
 import { useParams } from 'react-router-dom'
-import { ListingDetails, ListingBookings } from './components'
+import {
+  ListingDetails,
+  ListingBookings,
+  ListingCreateBooking,
+} from './components'
 
 const { Content } = Layout
 const PAGE_LIMIT = 3
@@ -116,12 +120,17 @@ export const Listing = () => {
     />
   )
 
+  const ListingCreateBookingElement = <ListingCreateBooking />
+
   return (
     <Content className='listings'>
       <Row gutter={24} justify={'space-between'}>
         <Col xs={24} lg={14}>
           {listingDetailsElement}
           {listingBookingsElement}
+        </Col>
+        <Col xs={24} lg={10}>
+          {ListingCreateBookingElement}
         </Col>
       </Row>
     </Content>
