@@ -52,7 +52,6 @@ export const Listing = () => {
 
   const listing = data ? data.listing : null
   // const listingBookings = listing ? listing.bookings : null
-
   // MOCK data to test Listing Bookings
   const listingBookings = {
     total: 4,
@@ -111,6 +110,7 @@ export const Listing = () => {
       },
     ],
   } as any
+
   const listingDetailsElement = listing && <ListingDetails listing={listing} />
 
   const listingBookingsElement = listingBookings && (
