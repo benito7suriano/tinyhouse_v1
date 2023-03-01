@@ -41,6 +41,10 @@ export const ListingCreateBooking = ({
     setCheckOutDate(selectedCheckOutDate)
   }
 
+  const checkOutInputDisabled = !checkInDate
+
+  const buttonDisabled = !checkInDate || !checkOutDate
+
   return (
     <div className='listing-booking'>
       <Card className='listing-booking__card'>
@@ -55,6 +59,7 @@ export const ListingCreateBooking = ({
           <div className='listing-booking__card-date-picker'>
             <Paragraph strong>Check In</Paragraph>
             <DatePicker
+              showToday={false}
               value={checkInDate ? checkInDate : undefined}
               format={'YYYY/MM/DD'}
               disabledDate={disabledDate}
@@ -64,9 +69,11 @@ export const ListingCreateBooking = ({
           <div className='listing-booking__card-date-picker'>
             <Paragraph strong>Check Out</Paragraph>
             <DatePicker
+              showToday={false}
               value={checkOutDate ? checkOutDate : undefined}
               format={'YYYY/MM/DD'}
               disabledDate={disabledDate}
+              disabled={checkOutInputDisabled}
               onChange={(dateValue) => verifyAndSetCheckOutDate(dateValue)}
             />
           </div>
@@ -75,6 +82,7 @@ export const ListingCreateBooking = ({
         <Button
           size='large'
           type='primary'
+          disabled={buttonDisabled}
           className='listing-booking__card-cta'>
           Request to book!
         </Button>
