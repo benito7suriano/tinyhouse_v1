@@ -22,7 +22,7 @@ export const ListingCreateBooking = ({
 }: Props) => {
   const disabledDate = (currentDate?: Dayjs) => {
     if (currentDate) {
-      const dateIsBeforeEndOfDay = currentDate.isBefore(dayjs())
+      const dateIsBeforeEndOfDay = currentDate.isBefore(dayjs().endOf('day'))
       return dateIsBeforeEndOfDay
     } else {
       return false
