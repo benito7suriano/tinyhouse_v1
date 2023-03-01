@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Card, DatePicker, Divider, Typography } from 'antd'
 import dayjs, { Dayjs } from 'dayjs'
-import { formatListingPrice } from '../../../../lib/utils'
+import { formatListingPrice, displayErrorMessage } from '../../../../lib/utils'
 
 const { Paragraph, Title } = Typography
 
@@ -27,6 +27,18 @@ export const ListingCreateBooking = ({
     } else {
       return false
     }
+  }
+
+  const verifyAndSetCheckOutDate = (selectedCheckOutDate: Dayjs | null) => {
+    if (checkInDate && selectedCheckOutDate) {
+      if (dayjs(selectedCheckOutDate).isBefore(checkInDate, 'days')) {
+        return displayErrorMessage(
+          `You can't book date of check out prior to check in!`,
+        )
+      }
+    }
+
+    setCheckOutDate(selectedCheckOutDate)
   }
 
   return (
@@ -55,7 +67,7 @@ export const ListingCreateBooking = ({
               value={checkOutDate ? checkOutDate : undefined}
               format={'YYYY/MM/DD'}
               disabledDate={disabledDate}
-              onChange={(dateValue) => setCheckOutDate(dateValue)}
+              onChange={(dateValue) => verifyAndSetCheckOutDate(dateValue)}
             />
           </div>
         </div>
