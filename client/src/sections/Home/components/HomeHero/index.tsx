@@ -23,7 +23,22 @@ export const HomeHero = () => {
           className='home-hero__search-input'
         />
       </div>
-      <Row gutter={12} className='home-hero__cards'></Row>
+      <Row gutter={12} className='home-hero__cards'>
+        <Col xs={12} md={6}>
+          <Card cover={<img alt='Toronto' src={torontoImage} />}>Toronto</Card>
+        </Col>
+        <Col xs={12} md={6}>
+          <Card cover={<img alt='Dubai' src={dubaiImage} />}>Dubai</Card>
+        </Col>
+        <Col xs={0} md={6}>
+          <Card cover={<img alt='Los Angeles' src={losAngelesImage} />}>
+            Los Angeles
+          </Card>
+        </Col>
+        <Col xs={0} md={6}>
+          <Card cover={<img alt='London' src={londonImage} />}>London</Card>
+        </Col>
+      </Row>
     </div>
   )
 }
