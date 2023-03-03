@@ -10,5 +10,20 @@ const { Title } = Typography
 const { Search } = Input
 
 export const HomeHero = () => {
-  return <div>HomeHero</div>
+  return (
+    <div className='home-hero'>
+      <div className='home-hero__search'>
+        <Title className='home-hero__title'>
+          Find a place you'll love to stay at
+        </Title>
+        <Search
+          placeholder={`Search 'San Francisco'`}
+          size={'large'}
+          enterButton
+          className='home-hero__search-input'
+        />
+      </div>
+      <Row gutter={12} className='home-hero__cards'></Row>
+    </div>
+  )
 }
