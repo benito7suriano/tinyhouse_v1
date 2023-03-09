@@ -12,6 +12,7 @@ import {
 import reportWebVitals from './reportWebVitals'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Affix, Layout, Spin } from 'antd'
+import { StyleProvider } from '@ant-design/cssinjs'
 
 import { Viewer } from './lib/types'
 import 'antd/dist/reset.css'
@@ -127,7 +128,9 @@ const App = () => {
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <ApolloProvider client={client}>
-    <App />
+    <StyleProvider>
+      <App />
+    </StyleProvider>
   </ApolloProvider>,
 )
 
