@@ -4,6 +4,13 @@ import { HomeHero } from './components'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { displayErrorMessage } from '../../lib/utils'
+import { useQuery } from '@apollo/react-hooks'
+import { LISTINGS } from '../../lib/graphql/queries'
+import {
+  ListingsQueryVariables,
+  ListingsQuery as ListingsData,
+} from '../../gql/graphql'
+import { ListingsFilter } from '../../gql/graphql'
 
 import mapBackground from './assets/map-background.jpg'
 import sanFranciscoImage from './assets/san-francisco.jpg'
@@ -12,12 +19,24 @@ import cancunImage from './assets/cancun.jpg'
 const { Content } = Layout
 const { Paragraph, Title } = Typography
 
+const PAGE_LIMIT = 4
+const PAGE_NUMBER = 1
+
 export const Home = () => {
+  const { loading, data } = useQuery<ListingsData, ListingsQueryVariables>(
+    LISTINGS,
+    {
+      variables: {
+        filter: ListingsFilter.PriceHighToLow,
+        limit: PAGE_LIMIT,
+        page: PAGE_NUMBER,
+      },
+    },
+  )
   const navigate = useNavigate()
   const onSearch = (value: string) => {
     // String.prototype.trim() -> The trim() method removes whitespace from both ends of a string and returns a new string, without modifying the original string.
     const trimmedValue = value.trim()
-
     console.log(`trimmed value: ${trimmedValue}`)
 
     if (trimmedValue) {
