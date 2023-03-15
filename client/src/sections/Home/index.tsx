@@ -46,6 +46,18 @@ export const Home = () => {
     }
   }
 
+  const renderListingsSection = () => {
+    if (loading) {
+      return 'Loading...'
+    }
+
+    if (data) {
+      return '<HomeListings />'
+    }
+
+    return null
+  }
+
   return (
     <Content
       className='home'
