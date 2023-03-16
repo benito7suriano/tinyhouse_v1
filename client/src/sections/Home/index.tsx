@@ -1,6 +1,6 @@
 import React from 'react'
 import { Layout, Col, Row, Typography, Button } from 'antd'
-import { HomeHero } from './components'
+import { HomeHero, HomeListings } from './components'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { displayErrorMessage } from '../../lib/utils'
