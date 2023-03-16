@@ -1,11 +1,11 @@
 import React from 'react'
 import { List, Typography } from 'antd'
 import { ListingCard } from '../../../../lib/components'
-import { Listings } from '../../../../gql/graphql'
+import { ListingsQuery } from '../../../../gql/graphql'
 
 interface Props {
   title: string
-  listings: Listings['result']
+  listings: ListingsQuery['listings']['result']
 }
 
 const { Title } = Typography

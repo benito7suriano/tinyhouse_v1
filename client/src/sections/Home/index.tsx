@@ -1,6 +1,6 @@
 import React from 'react'
 import { Layout, Col, Row, Typography, Button } from 'antd'
-import { HomeHero, HomeListings } from './components'
+import { HomeHero, HomeListings, HomeListingsSkeleton } from './components'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { displayErrorMessage } from '../../lib/utils'
@@ -48,11 +48,16 @@ export const Home = () => {
 
   const renderListingsSection = () => {
     if (loading) {
-      return 'Loading...'
+      return <HomeListingsSkeleton />
     }
 
     if (data) {
-      return '<HomeListing title= listings={data.listings.results} />'
+      return (
+        <HomeListings
+          title='Premium Listings'
+          listings={data.listings.result}
+        />
+      )
     }
 
     return null
