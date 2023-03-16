@@ -52,7 +52,7 @@ export const Home = () => {
     }
 
     if (data) {
-      return '<HomeListings />'
+      return '<HomeListing title= listings={data.listings.results} />'
     }
 
     return null
@@ -78,6 +78,8 @@ export const Home = () => {
           </Button>
         </Link>
       </div>
+
+      {renderListingsSection()}
 
       <div className='home__listings'>
         <Title level={4} className='home__listings-title'>
