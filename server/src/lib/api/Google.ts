@@ -1,5 +1,5 @@
 import { google } from 'googleapis'
-
+import { Client } from '@googlemaps/google-maps-services-js'
 const auth = new google.auth.OAuth2(
   process.env.G_CLIENT_ID,
   process.env.G_CLIENT_SECRET,
@@ -27,5 +27,8 @@ export const Google = {
     })
 
     return { user: data }
+  },
+  geocode: async (address: string) => {
+    // boilerplate
   },
 }
