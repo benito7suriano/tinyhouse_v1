@@ -20,6 +20,7 @@ export enum ListingsFilter {
 }
 
 export interface ListingsArgs {
+  location: string | null
   filter: ListingsFilter
   limit: number
   page: number
