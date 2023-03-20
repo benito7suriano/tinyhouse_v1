@@ -1,6 +1,6 @@
 import { IResolvers } from '@graphql-tools/utils'
 import { Database, Listing, User } from '../../../lib/types'
-import { ListingArgs, ListingsFilter } from './types'
+import { ListingArgs, ListingsFilter, ListingsQuery } from './types'
 import { ObjectId } from 'mongodb'
 import { authorize } from '../../../lib/utils'
 import { Request } from 'express'
@@ -10,6 +10,7 @@ import {
   ListingsArgs,
   ListingsData,
 } from './types'
+import { Google } from '../../../lib/api'
 
 export const listingResolvers: IResolvers = {
   Query: {
@@ -37,7 +38,7 @@ export const listingResolvers: IResolvers = {
     },
     listings: async (
       _root: undefined,
-      { filter, limit, page }: ListingsArgs,
+      { location, filter, limit, page }: ListingsArgs,
       { db }: { db: Database },
     ): Promise<ListingsData> => {
       try {
@@ -45,8 +46,23 @@ export const listingResolvers: IResolvers = {
           total: 0,
           result: [],
         }
+        const query: ListingsQuery = {}
 
-        let cursor = await db.listings.find({})
+        if (location) {
+          const { country, admin, city } = await Google.geocode(location)
+
+          console.log(`country: ${country}, admin: ${admin}, city: ${city}`)
+
+          if (city) query.city = city
+          if (admin) query.admin = admin
+          if (country) {
+            query.country = country
+          } else {
+            throw new Error('No country found!')
+          }
+        }
+
+        let cursor = await db.listings.find(query)
 
         if (filter && filter === ListingsFilter.PRICE_LOW_TO_HIGH) {
           cursor = cursor.sort({ price: 1 })

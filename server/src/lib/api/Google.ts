@@ -4,7 +4,6 @@ import {
   GeocodeRequest,
   AddressComponent,
   PlaceType2,
-  PlaceType1,
 } from '@googlemaps/google-maps-services-js'
 
 const auth = new google.auth.OAuth2(
@@ -35,9 +34,8 @@ const parseAddress = (addressComponents: AddressComponent[]) => {
     ) {
       city = component.long_name
     }
-
-    return { country, admin, city }
   }
+  return { country, admin, city }
 }
 
 export const Google = {
@@ -66,13 +64,18 @@ export const Google = {
     const req: GeocodeRequest = {
       params: {
         address: address,
-        key: process.env.GOOGLE_MAPS_API_KEY as string,
+        key: process.env.GOOGLE_MAPS_API_KEY,
       },
     }
     const res = await maps.geocode(req)
     if (res.status < 200 || res.status > 299) {
       throw new Error('Failed to geocode address')
     }
+
+    console.log(
+      'res.data from google maps api:',
+      res.data.results[0].address_components,
+    )
 
     return parseAddress(res.data.results[0].address_components)
   },
