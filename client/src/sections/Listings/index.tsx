@@ -24,5 +24,17 @@ export const Listings = () => {
   // When data is available from our query, we'll look to obtain the listings field from data and assign it to a listings constant.
   const listings = data ? data.listings : null
 
+  const listingsSectionElement = listings && (
+    <List
+      grid={{ gutter: 8, xs: 1, sm: 2, lg: 4 }}
+      dataSource={listings.result}
+      renderItem={(listing) => (
+        <List.Item>
+          <ListingCard listing={listing} />
+        </List.Item>
+      )}
+    />
+  )
+
   return <div>Listings</div>
 }
