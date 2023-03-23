@@ -1,5 +1,6 @@
 import React from 'react'
 import { useQuery } from '@apollo/react-hooks'
+import { useParams } from 'react-router-dom'
 import { Layout, List } from 'antd'
 import { ListingCard } from '../../lib/components'
 import { LISTINGS } from '../../lib/graphql/queries'
@@ -13,8 +14,10 @@ const { Content } = Layout
 const PAGE_LIMIT = 8
 
 export const Listings = () => {
+  const { location } = useParams()
   const { data } = useQuery<ListingsData, ListingsQueryVariables>(LISTINGS, {
     variables: {
+      location: location!,
       filter: ListingsFilter.PriceLowToHigh,
       limit: PAGE_LIMIT,
       page: 1,
@@ -36,5 +39,5 @@ export const Listings = () => {
     />
   )
 
-  return <div>Listings</div>
+  return <Content className='listings'>{listingsSectionElement}</Content>
 }

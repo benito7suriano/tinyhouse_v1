@@ -27,6 +27,7 @@ export const Home = () => {
     LISTINGS,
     {
       variables: {
+        location: null,
         filter: ListingsFilter.PriceHighToLow,
         limit: PAGE_LIMIT,
         page: PAGE_NUMBER,
