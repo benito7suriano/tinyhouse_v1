@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import { useParams } from 'react-router-dom'
 import { Layout, List, Typography } from 'antd'
@@ -16,6 +16,7 @@ const { Title, Paragraph, Text } = Typography
 const PAGE_LIMIT = 8
 
 export const Listings = () => {
+  const [filter, setFilter] = useState(ListingsFilter.PriceLowToHigh)
   const { location } = useParams()
   const { data } = useQuery<ListingsData, ListingsQueryVariables>(LISTINGS, {
     variables: {
