@@ -10,6 +10,7 @@ import {
   ListingsQueryVariables,
 } from '../../gql/graphql'
 import { ListingsFilter } from '../../gql/graphql'
+import { ListingsFilters } from './components'
 
 const { Content } = Layout
 const { Title, Paragraph, Text } = Typography
@@ -33,15 +34,18 @@ export const Listings = () => {
 
   const listingsSectionElement =
     listings && listings.result.length ? (
-      <List
-        grid={{ gutter: 8, xs: 1, sm: 2, lg: 4 }}
-        dataSource={listings.result}
-        renderItem={(listing) => (
-          <List.Item>
-            <ListingCard listing={listing} />
-          </List.Item>
-        )}
-      />
+      <div>
+        <ListingsFilters filter={filter} setFilter={setFilter} />
+        <List
+          grid={{ gutter: 8, xs: 1, sm: 2, lg: 4 }}
+          dataSource={listings.result}
+          renderItem={(listing) => (
+            <List.Item>
+              <ListingCard listing={listing} />
+            </List.Item>
+          )}
+        />
+      </div>
     ) : (
       <div className=''>
         <Paragraph>
