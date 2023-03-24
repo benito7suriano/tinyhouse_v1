@@ -43,6 +43,7 @@ export const listingResolvers: IResolvers = {
     ): Promise<ListingsData> => {
       try {
         const data: ListingsData = {
+          region: null,
           total: 0,
           result: [],
         }
@@ -51,8 +52,6 @@ export const listingResolvers: IResolvers = {
         if (location) {
           const { country, admin, city } = await Google.geocode(location)
 
-          console.log(`country: ${country}, admin: ${admin}, city: ${city}`)
-
           if (city) query.city = city
           if (admin) query.admin = admin
           if (country) {
@@ -60,6 +59,11 @@ export const listingResolvers: IResolvers = {
           } else {
             throw new Error('No country found!')
           }
+
+          const cityText = city ? `${city}, ` : ''
+          const adminText = admin ? `${admin}, ` : ''
+
+          data.region = `${cityText}${adminText}${country}`
         }
 
         let cursor = await db.listings.find(query)
