@@ -1,1 +1,1 @@
-export * from './ListingsFilter'
+export * from './ListingsFilters'
