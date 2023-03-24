@@ -1,7 +1,7 @@
 import React from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import { useParams } from 'react-router-dom'
-import { Layout, List } from 'antd'
+import { Layout, List, Typography } from 'antd'
 import { ListingCard } from '../../lib/components'
 import { LISTINGS } from '../../lib/graphql/queries'
 import {
@@ -11,6 +11,7 @@ import {
 import { ListingsFilter } from '../../gql/graphql'
 
 const { Content } = Layout
+const { Title } = Typography
 const PAGE_LIMIT = 8
 
 export const Listings = () => {
@@ -26,6 +27,7 @@ export const Listings = () => {
 
   // When data is available from our query, we'll look to obtain the listings field from data and assign it to a listings constant.
   const listings = data ? data.listings : null
+  const listingsRegion = listings ? listings.region : null
 
   const listingsSectionElement = listings && (
     <List
@@ -39,5 +41,16 @@ export const Listings = () => {
     />
   )
 
-  return <Content className='listings'>{listingsSectionElement}</Content>
+  const listingsRegionElement = listingsRegion && (
+    <Title level={3} className='listings__title'>
+      Results for '{listingsRegion}'
+    </Title>
+  )
+
+  return (
+    <Content className='listings'>
+      {listingsRegionElement}
+      {listingsSectionElement}
+    </Content>
+  )
 }
