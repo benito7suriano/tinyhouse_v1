@@ -18,13 +18,14 @@ const PAGE_LIMIT = 8
 
 export const Listings = () => {
   const [filter, setFilter] = useState(ListingsFilter.PriceLowToHigh)
+  const [page, setPage] = useState(1)
   const { location } = useParams()
   const { data } = useQuery<ListingsData, ListingsQueryVariables>(LISTINGS, {
     variables: {
       location: location!,
       filter: ListingsFilter.PriceLowToHigh,
       limit: PAGE_LIMIT,
-      page: 1,
+      page,
     },
   })
 
