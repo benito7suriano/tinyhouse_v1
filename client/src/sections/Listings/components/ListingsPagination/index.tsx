@@ -8,6 +8,16 @@ interface Props {
   setPage: (page: number) => void
 }
 
-export const ListingsPagination = () => {
-  return <div>ListingsPagination</div>
+export const ListingsPagination = ({ total, page, limit, setPage }: Props) => {
+  return (
+    <Pagination
+      current={page}
+      total={total}
+      defaultPageSize={limit}
+      hideOnSinglePage
+      showLessItems
+      onChange={(page: number) => setPage(page)}
+      className='listings-pagination'
+    />
+  )
 }
