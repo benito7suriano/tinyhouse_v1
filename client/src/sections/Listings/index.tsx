@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import { useParams } from 'react-router-dom'
-import { Layout, List, Typography } from 'antd'
+import { Layout, List, Typography, Affix } from 'antd'
 import { Link } from 'react-router-dom'
 import { ListingCard } from '../../lib/components'
 import { LISTINGS } from '../../lib/graphql/queries'
@@ -10,11 +10,11 @@ import {
   ListingsQueryVariables,
 } from '../../gql/graphql'
 import { ListingsFilter } from '../../gql/graphql'
-import { ListingsFilters } from './components'
+import { ListingsFilters, ListingsPagination } from './components'
 
 const { Content } = Layout
 const { Title, Paragraph, Text } = Typography
-const PAGE_LIMIT = 8
+const PAGE_LIMIT = 4
 
 export const Listings = () => {
   const [filter, setFilter] = useState(ListingsFilter.PriceLowToHigh)
@@ -33,10 +33,22 @@ export const Listings = () => {
   const listings = data ? data.listings : null
   const listingsRegion = listings ? listings.region : null
 
+  console.log(listings)
+
   const listingsSectionElement =
     listings && listings.result.length ? (
       <div>
-        <ListingsFilters filter={filter} setFilter={setFilter} />
+        <Affix offsetTop={64}>
+          <div>
+            <ListingsPagination
+              total={listings.total}
+              page={page}
+              limit={PAGE_LIMIT}
+              setPage={setPage}
+            />
+            <ListingsFilters filter={filter} setFilter={setFilter} />
+          </div>
+        </Affix>
         <List
           grid={{ gutter: 8, xs: 1, sm: 2, lg: 4 }}
           dataSource={listings.result}
