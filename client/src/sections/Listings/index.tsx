@@ -14,7 +14,7 @@ import { ListingsFilters, ListingsPagination } from './components'
 
 const { Content } = Layout
 const { Title, Paragraph, Text } = Typography
-const PAGE_LIMIT = 4
+const PAGE_LIMIT = 8
 
 export const Listings = () => {
   const [filter, setFilter] = useState(ListingsFilter.PriceLowToHigh)
@@ -23,7 +23,7 @@ export const Listings = () => {
   const { data } = useQuery<ListingsData, ListingsQueryVariables>(LISTINGS, {
     variables: {
       location: location!,
-      filter: ListingsFilter.PriceLowToHigh,
+      filter: filter,
       limit: PAGE_LIMIT,
       page,
     },
@@ -33,7 +33,7 @@ export const Listings = () => {
   const listings = data ? data.listings : null
   const listingsRegion = listings ? listings.region : null
 
-  console.log(listings)
+  console.log('filter:', filter)
 
   const listingsSectionElement =
     listings && listings.result.length ? (

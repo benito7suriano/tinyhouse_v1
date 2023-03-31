@@ -15,7 +15,9 @@ export const ListingsFilters = ({ filter, setFilter }: Props) => {
       <span>Filter by</span>
       <Select
         value={filter}
-        onChange={(filter: ListingsFilter) => setFilter(filter)}>
+        onChange={(filter: ListingsFilter) => {
+          setFilter(filter)
+        }}>
         <Option value={ListingsFilter.PriceLowToHigh}>
           Price: Low to High
         </Option>
