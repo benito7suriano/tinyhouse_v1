@@ -10,7 +10,11 @@ import {
   ListingsQueryVariables,
 } from '../../gql/graphql'
 import { ListingsFilter } from '../../gql/graphql'
-import { ListingsFilters, ListingsPagination } from './components'
+import {
+  ListingsFilters,
+  ListingsPagination,
+  ListingsSkeleton,
+} from './components'
 
 const { Content } = Layout
 const { Title, Paragraph, Text } = Typography
@@ -20,7 +24,10 @@ export const Listings = () => {
   const [filter, setFilter] = useState(ListingsFilter.PriceLowToHigh)
   const [page, setPage] = useState(1)
   const { location } = useParams()
-  const { data } = useQuery<ListingsData, ListingsQueryVariables>(LISTINGS, {
+  const { data, loading, error } = useQuery<
+    ListingsData,
+    ListingsQueryVariables
+  >(LISTINGS, {
     variables: {
       location: location!,
       filter: filter,
@@ -28,6 +35,14 @@ export const Listings = () => {
       page,
     },
   })
+
+  if (loading) {
+    return (
+      <Content className='listings'>
+        <ListingsSkeleton />
+      </Content>
+    )
+  }
 
   // When data is available from our query, we'll look to obtain the listings field from data and assign it to a listings constant.
   const listings = data ? data.listings : null
