@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/react-hooks'
 import { useParams } from 'react-router-dom'
 import { Layout, List, Typography, Affix } from 'antd'
 import { Link } from 'react-router-dom'
-import { ListingCard } from '../../lib/components'
+import { ListingCard, ErrorBanner } from '../../lib/components'
 import { LISTINGS } from '../../lib/graphql/queries'
 import {
   ListingsQuery as ListingsData,
@@ -40,6 +40,16 @@ export const Listings = () => {
     return (
       <Content className='listings'>
         <ListingsSkeleton />
+      </Content>
+    )
+  }
+
+  if (error) {
+    return (
+      <Content className='listings'>
+        <ErrorBanner
+          description={`We either couldn't find anything matching your search or have encountered and error. If you're searching for a unique location, try searching again with more common keywords.`}
+        />
       </Content>
     )
   }
