@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Header } from 'antd/es/layout/layout'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { Input, Layout } from 'antd'
 
 import logo from './assets/hosty-logo.png'
@@ -17,7 +17,11 @@ interface Props {
 const { Search } = Input
 
 export const AppHeader = ({ viewer, setViewer }: Props) => {
+  const [search, setSearch] = useState('')
+
   const navigate = useNavigate()
+  const location = useLocation()
+
   const onSearch = (value: string) => {
     const trimmedValue = value.trim()
 
@@ -27,6 +31,22 @@ export const AppHeader = ({ viewer, setViewer }: Props) => {
       displayErrorMessage('Please enter a valid search!')
     }
   }
+
+  useEffect(() => {
+    const { pathname } = location
+    const pathnameSubstrings = pathname.split('/')
+
+    if (!pathname.includes('/listings')) {
+      setSearch('')
+      return
+    }
+
+    if (pathname.includes('/listings') && pathnameSubstrings.length === 3) {
+      setSearch(pathnameSubstrings[2])
+      return
+    }
+  }, [location])
+
   return (
     <Header className='app-header'>
       <div className='app-header__logo-search-section'>
@@ -40,6 +60,8 @@ export const AppHeader = ({ viewer, setViewer }: Props) => {
         <Search
           placeholder={`Search 'San Francisco'`}
           enterButton
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
           onSearch={onSearch}
         />
       </div>
