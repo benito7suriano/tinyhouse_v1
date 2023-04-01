@@ -11,6 +11,7 @@
     padding: 0;
   }
 }
+
 .app-header {
   display: flex;
   background: #fff;
@@ -39,6 +40,7 @@
   border: 0;
   width: 100%;
   max-width: 460px;
+  text-transform: capitalize;
 }
 .app-header__search-input .ant-input-group input {
   border: 1px solid #f0f1f2;

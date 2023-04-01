@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import { useParams } from 'react-router-dom'
 import { Layout, List, Typography, Affix } from 'antd'
@@ -18,16 +18,21 @@ import {
 
 const { Content } = Layout
 const { Title, Paragraph, Text } = Typography
-const PAGE_LIMIT = 8
+const PAGE_LIMIT = 4
 
 export const Listings = () => {
   const [filter, setFilter] = useState(ListingsFilter.PriceLowToHigh)
   const [page, setPage] = useState(1)
+
   const { location } = useParams()
+
+  const locationRef = useRef(location)
+
   const { data, loading, error } = useQuery<
     ListingsData,
     ListingsQueryVariables
   >(LISTINGS, {
+    skip: locationRef.current !== location && page !== 1,
     variables: {
       location: location!,
       filter: filter,
@@ -38,6 +43,7 @@ export const Listings = () => {
 
   useEffect(() => {
     setPage(1)
+    locationRef.current = location
   }, [location])
 
   if (loading) {

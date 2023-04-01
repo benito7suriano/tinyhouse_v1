@@ -8,6 +8,7 @@ import logo from './assets/hosty-logo.png'
 import { MenuItems } from './components'
 import { Viewer } from '../../lib/types'
 import { displayErrorMessage } from '../../lib/utils'
+import { format } from 'path'
 
 interface Props {
   viewer: Viewer
@@ -42,7 +43,11 @@ export const AppHeader = ({ viewer, setViewer }: Props) => {
     }
 
     if (pathname.includes('/listings') && pathnameSubstrings.length === 3) {
-      setSearch(pathnameSubstrings[2])
+      const formattedPathnameSubstring = pathnameSubstrings[2].replace(
+        '%20',
+        ' ',
+      )
+      setSearch(formattedPathnameSubstring)
       return
     }
   }, [location])
