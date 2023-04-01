@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import { useParams } from 'react-router-dom'
 import { Layout, List, Typography, Affix } from 'antd'
@@ -35,6 +35,10 @@ export const Listings = () => {
       page,
     },
   })
+
+  useEffect(() => {
+    setPage(1)
+  }, [location])
 
   if (loading) {
     return (
