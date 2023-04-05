@@ -82,10 +82,14 @@ export const typeDefs = `#gql
     listings(location: String, filter: ListingsFilter!, limit: Int!, page: Int!): Listings!
   }
 
+  input ConnectStripeInput {
+    code: String!
+  }
+
   type Mutation {
     logIn(input: LogInInput): Viewer!
     logOut: Viewer!
-    connectStripe: Viewer!
+    connectStripe(input: ConnectStripeInput!): Viewer!
     disconnectStripe: Viewer!
   }
 `
